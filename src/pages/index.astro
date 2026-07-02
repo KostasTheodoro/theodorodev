@@ -51,4 +51,24 @@ const featured = await getFeaturedProjects('en');
 			{featured.map((project) => <ProjectCard project={project} />)}
 		</div>
 	</section>
+
+	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16 md:flex-row md:items-center">
+		<div class="aspect-square w-full max-w-xs shrink-0 rounded border border-border bg-bg-card">
+		</div>
+		<div class="flex flex-col gap-4">
+			<h2 class="text-2xl text-text">
+				{/* TODO: review copy */}
+				About
+			</h2>
+			<p class="max-w-xl text-text-muted">
+				{/* TODO: review copy */}
+				I'm Kostas, a developer based in Athens. I build sites that are fast, accessible, and easy
+				to maintain — for Greek small businesses and international teams alike.
+			</p>
+			<a href="/about" class="text-sm text-primary hover:underline">
+				{/* TODO: review copy */}
+				More about me
+			</a>
+		</div>
+	</section>
 </Layout>
