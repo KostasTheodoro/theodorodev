@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { slug, title, oneLiner, stack, cover } = project.data;
+---
+
+<a href={`/projects/${slug}`} class="group flex flex-col gap-4">
+	<Image
+		src={cover}
+		alt={title}
+		transition:name={`project-image-${slug}`}
+		class="aspect-video w-full rounded object-cover"
+	/>
+	<h3 transition:name={`project-title-${slug}`} class="text-lg text-text group-hover:text-primary">
+		{title}
+	</h3>
+	<p class="text-sm text-text-muted">{oneLiner}</p>
+	<ul class="flex flex-wrap gap-2">
+		{
+			stack.map((item) => (
+				<li class="rounded border border-border px-2 py-0.5 font-mono text-xs text-text-muted">
+					{item}
+				</li>
+			))
+		}
+	</ul>
+</a>
