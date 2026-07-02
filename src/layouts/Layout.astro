@@ -1,0 +1,124 @@
+---
+import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
+import '@/styles/global.css';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<Font cssVariable="--font-instrument-sans" preload />
+		<Font cssVariable="--font-jetbrains-mono" />
+		<ClientRouter />
+		<script is:inline>
+			(function () {
+				const stored = localStorage.getItem('theme');
+				const theme =
+					stored === 'light' || stored === 'dark'
+						? stored
+						: matchMedia('(prefers-color-scheme: light)').matches
+							? 'light'
+							: 'dark';
+				document.documentElement.dataset.theme = theme;
+			})();
+
+			document.addEventListener('astro:before-swap', (event) => {
+				event.newDocument.documentElement.dataset.theme = document.documentElement.dataset.theme;
+			});
+		</script>
+	</head>
+	<body class="flex min-h-screen flex-col">
+		<header class="border-b border-border">
+			<nav class="mx-auto flex max-w-5xl items-center justify-between gap-6 px-6 py-4">
+				<a href="/" class="font-mono text-sm text-text">theodorodev</a>
+				<div class="flex items-center gap-6 text-sm">
+					<a href="/projects" class="text-text hover:text-primary">Projects</a>
+					<a href="/about" class="text-text hover:text-primary">About</a>
+					<a href="/contact" class="text-text hover:text-primary">Contact</a>
+					<!-- TODO: review copy — wired to real /el/ routes in P6 -->
+					<a href="#" class="font-mono text-text-muted hover:text-primary" aria-label="Switch to Greek">EL</a>
+					<button
+						id="theme-toggle"
+						type="button"
+						class="theme-toggle text-text hover:text-primary"
+						aria-label="Toggle color theme"
+					>
+						<svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+							<circle cx="12" cy="12" r="4" />
+							<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+						</svg>
+						<svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+							<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+						</svg>
+					</button>
+				</div>
+			</nav>
+		</header>
+
+		<main class="flex-1">
+			<slot />
+		</main>
+
+		<footer class="border-t border-border">
+			<div class="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-8 text-sm text-text-muted">
+				<!-- TODO: review copy — confirm real contact details -->
+				<div class="flex flex-wrap gap-4">
+					<a href="mailto:hello@theodorodev.com" class="hover:text-primary">Email</a>
+					<a href="#" class="hover:text-primary">Phone</a>
+					<a href="#" class="hover:text-primary">WhatsApp</a>
+					<a href="https://github.com/KostasTheodoro" class="hover:text-primary" rel="noopener" target="_blank">GitHub</a>
+					<a href="#" class="hover:text-primary">LinkedIn</a>
+				</div>
+				<p>
+					Built with Astro + React ·
+					<a href="https://github.com/KostasTheodoro/theodorodev" class="underline hover:text-primary" rel="noopener" target="_blank">View source</a>
+				</p>
+				<p>&copy; {new Date().getFullYear()} Kostas Theodoropoulos</p>
+			</div>
+		</footer>
+
+		<script is:inline>
+			document.addEventListener('astro:page-load', () => {
+				const toggle = document.getElementById('theme-toggle');
+				toggle?.addEventListener('click', () => {
+					const root = document.documentElement;
+					const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+					root.dataset.theme = next;
+					localStorage.setItem('theme', next);
+				});
+			});
+		</script>
+	</body>
+</html>
+
+<style>
+	.theme-toggle .icon-moon {
+		display: none;
+	}
+
+	[data-theme='light'] .theme-toggle .icon-sun {
+		display: none;
+	}
+
+	[data-theme='light'] .theme-toggle .icon-moon {
+		display: block;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		a,
+		.theme-toggle {
+			transition: color 200ms ease;
+		}
+	}
+</style>
