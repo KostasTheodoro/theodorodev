@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -13,5 +13,22 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  adapter: vercel()
+  adapter: vercel(),
+
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Instrument Sans',
+      cssVariable: '--font-instrument-sans',
+      weights: ['400 700'],
+      styles: ['normal']
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'JetBrains Mono',
+      cssVariable: '--font-jetbrains-mono',
+      weights: [400, 500],
+      styles: ['normal']
+    }
+  ]
 });
