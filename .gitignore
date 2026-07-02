@@ -1,0 +1,36 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+
+# environment (commit .env.example only)
+.env
+.env.*
+!.env.example
+
+# vercel
+.vercel/
+
+# logs / OS
+*.log
+.DS_Store
+Thumbs.db
+
+# editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# ── AI workflow: never published ──
+CLAUDE.md
+SPEC.md
+PROMPTS.md
+GIT.md
+NOTES.md
+AGENTS.md
+.claude/
+.cursor/
+.mcp.json
+*.local.json
