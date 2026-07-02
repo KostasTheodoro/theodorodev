@@ -1,1 +1,40 @@
 @import "tailwindcss";
+
+/* Aegean Petrol palette — locked, see SPEC.md 2.1. Do not edit values here. */
+:root {
+  --bg: #0b1b20;
+  --bg-card: #10242b;
+  --border: #1e3238;
+  --text: #ede7da;
+  --text-muted: #8fa3a8;
+  --primary: #4fb3c6;
+  --on-primary: #0b1b20;
+  --accent: #f0a63c;
+}
+
+[data-theme="light"] {
+  --bg: #faf6ef;
+  --bg-card: #ffffff;
+  --border: #e3dcce;
+  --text: #12333b;
+  --text-muted: #4a5a5f;
+  --primary: #0e5a6d;
+  --on-primary: #faf6ef;
+  --accent: #e8890c;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-card: var(--bg-card);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-accent: var(--accent);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
