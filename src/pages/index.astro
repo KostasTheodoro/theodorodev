@@ -3,8 +3,38 @@ import Layout from '@/layouts/Layout.astro';
 ---
 
 <Layout title="theodorodev — web developer, Athens">
-	<div class="mx-auto max-w-5xl px-6 py-24">
-		<h1 class="text-text">theodorodev</h1>
-		<p class="text-text-muted">Site under construction.</p>
-	</div>
+	<section class="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-24">
+		<div class="flex items-center gap-2 self-start rounded-full border border-border px-3 py-1 text-xs text-text-muted">
+			<span class="h-2 w-2 rounded-full bg-accent"></span>
+			Available for new projects
+		</div>
+		<p class="font-mono text-sm text-text-muted">
+			{/* TODO: review copy */}
+			const developer = "Kostas Theodoropoulos";
+		</p>
+		<h1 class="text-4xl leading-tight text-text sm:text-5xl">
+			Websites that load instantly and bring customers.
+		</h1>
+		<p class="max-w-2xl text-text-muted">
+			{/* TODO: review copy */}
+			I design and build fast, focused websites for small businesses and teams who need results,
+			not bloat.
+		</p>
+		<div class="flex flex-wrap gap-4">
+			<a
+				href="/projects"
+				class="rounded bg-primary px-5 py-2.5 text-sm text-on-primary hover:opacity-90"
+			>
+				{/* TODO: review copy */}
+				View projects
+			</a>
+			<a
+				href="/contact"
+				class="rounded border border-border px-5 py-2.5 text-sm text-text hover:border-primary"
+			>
+				{/* TODO: review copy */}
+				Get in touch
+			</a>
+		</div>
+	</section>
 </Layout>
