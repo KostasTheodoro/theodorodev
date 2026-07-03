@@ -12,21 +12,38 @@ const { project, showYear = false } = Astro.props;
 const { slug, title, oneLiner, stack, cover, year } = project.data;
 ---
 
-<a href={`/projects/${slug}`} class="group flex flex-col gap-4">
-	<Image
-		src={cover}
-		alt={title}
-		transition:name={`project-image-${slug}`}
-		class="aspect-video w-full rounded object-cover"
-	/>
-	<div class="flex items-center justify-between gap-4">
+<a
+	href={`/projects/${slug}`}
+	class="group flex flex-col gap-4 rounded-lg border border-border bg-bg-card p-3 hover:border-primary"
+>
+	<div class="overflow-hidden rounded">
+		<Image
+			src={cover}
+			alt={title}
+			transition:name={`project-image-${slug}`}
+			class="aspect-video w-full object-cover group-hover:scale-105"
+		/>
+	</div>
+	<div class="flex items-center justify-between gap-4 px-1">
 		<h3 transition:name={`project-title-${slug}`} class="text-lg text-text group-hover:text-primary">
 			{title}
 		</h3>
 		{showYear && <span class="font-mono text-xs text-text-muted">{year}</span>}
 	</div>
-	<p class="text-sm text-text-muted">{oneLiner}</p>
-	<ul class="flex flex-wrap gap-2">
+	<p class="px-1 text-sm text-text-muted">{oneLiner}</p>
+	<ul class="flex flex-wrap gap-2 px-1 pb-1">
 		{stack.map((item) => <StackBadge label={item} />)}
 	</ul>
 </a>
+
+<style>
+	@media (prefers-reduced-motion: no-preference) {
+		a {
+			transition: border-color 300ms ease;
+		}
+
+		img {
+			transition: transform 300ms ease;
+		}
+	}
+</style>
