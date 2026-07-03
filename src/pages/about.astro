@@ -5,13 +5,14 @@ import { Content } from '@/content/about.mdx';
 
 // TODO: review — confirm the exact stack list to feature here
 const stackGroups: { category: string; items: string[] }[] = [
-	{ category: 'Frameworks', items: ['Astro', 'React', 'Next.js', 'Node.js'] },
-	{ category: 'Styling', items: ['Tailwind CSS', 'CSS', 'shadcn/ui'] },
+	{ category: 'Languages', items: ['HTML', 'CSS', 'JavaScript', 'TypeScript'] },
+	{ category: 'Frameworks', items: ['React', 'Astro', 'Next.js', 'Node.js'] },
+	{ category: 'Styling', items: ['Tailwind CSS', 'Sass', 'shadcn/ui'] },
 	{ category: 'CMS & Data', items: ['MDX', 'Sanity', 'Supabase', 'PostgreSQL'] },
-	{ category: 'Tooling', items: ['TypeScript', 'Git', 'Vercel', 'Figma'] },
+	{ category: 'Tooling', items: ['Git', 'Vercel', 'Figma'] },
 ];
 
-const languages = ['Greek', 'English', 'French'];
+const languages = ['Greek', 'English', 'German'];
 ---
 
 <Layout title="About — theodorodev">
@@ -27,7 +28,7 @@ const languages = ['Greek', 'English', 'French'];
 
 	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16">
 		<h2 class="text-2xl text-text">Stack</h2>
-		<div class="grid gap-8 sm:grid-cols-2">
+		<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 			{
 				stackGroups.map((group) => (
 					<div class="flex flex-col gap-3">

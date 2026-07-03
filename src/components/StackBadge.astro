@@ -6,4 +6,18 @@ interface Props {
 const { label } = Astro.props;
 ---
 
-<li class="rounded border border-border px-2 py-0.5 font-mono text-xs text-text-muted">{label}</li>
+<li
+	class="stack-badge rounded border border-border px-2 py-0.5 font-mono text-xs text-text-muted hover:border-primary hover:text-primary"
+>
+	{label}
+</li>
+
+<style>
+	@media (prefers-reduced-motion: no-preference) {
+		.stack-badge {
+			transition:
+				color 200ms ease,
+				border-color 200ms ease;
+		}
+	}
+</style>
