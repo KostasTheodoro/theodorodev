@@ -1,0 +1,11 @@
+---
+import { person } from '@/data/person';
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	...person,
+};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
