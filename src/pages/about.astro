@@ -1,17 +1,20 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import SectionIcon from '@/components/SectionIcon.astro';
 import StackBadge from '@/components/StackBadge.astro';
 import { Content } from '@/content/about.mdx';
 
+type StackIcon = 'code' | 'layers' | 'palette' | 'database' | 'tool';
+
 // TODO: review — confirm the exact stack list to feature here
-const stackGroups: { category: string; items: string[] }[] = [
-	{ category: 'Languages', items: ['HTML', 'CSS', 'JavaScript', 'TypeScript'] },
-	{ category: 'Frameworks', items: ['React', 'Astro', 'Next.js', 'Node.js', 'React Router'] },
-	{ category: 'Styling', items: ['Tailwind CSS', 'Sass', 'shadcn/ui',
+const stackGroups: { category: string; icon: StackIcon; items: string[] }[] = [
+	{ category: 'Basics', icon: 'code', items: ['HTML', 'CSS', 'JavaScript', 'TypeScript'] },
+	{ category: 'Frameworks', icon: 'layers', items: ['React', 'Astro', 'Next.js', 'Node.js', 'React Router'] },
+	{ category: 'Styling', icon: 'palette', items: ['Tailwind CSS', 'Sass', 'shadcn/ui',
 		'Framer Motions'
 	] },
-	{ category: 'CMS & Data', items: ['MDX', 'Sanity', 'Supabase', 'PostgreSQL','Contentful'] },
-	{ category: 'Tooling', items: ['Git', 'Vercel', 'Figma','TanStack Query','bun'] },
+	{ category: 'CMS & Data', icon: 'database', items: ['MDX', 'Sanity', 'Supabase', 'PostgreSQL','Contentful'] },
+	{ category: 'Tooling', icon: 'tool', items: ['Git', 'Vercel', 'Figma','TanStack Query','bun'] },
 ];
 
 const languages = ['Greek', 'English', 'German'];
@@ -29,12 +32,18 @@ const languages = ['Greek', 'English', 'German'];
 	</section>
 
 	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16">
-		<h2 class="text-2xl text-text">Stack</h2>
+		<h2 class="flex items-center gap-2 text-2xl text-text">
+			<SectionIcon name="stack" class="h-5 w-5 text-primary" />
+			Stack
+		</h2>
 		<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 			{
 				stackGroups.map((group) => (
 					<div class="flex flex-col gap-3">
-						<p class="font-mono text-sm text-text-muted">{group.category}</p>
+						<p class="flex items-center gap-2 font-mono text-sm text-text-muted">
+							<SectionIcon name={group.icon} class="h-4 w-4 text-primary" />
+							{group.category}
+						</p>
 						<ul class="flex flex-wrap gap-2">
 							{group.items.map((item) => (
 								<StackBadge label={item} />
@@ -48,7 +57,10 @@ const languages = ['Greek', 'English', 'German'];
 
 	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16 sm:flex-row sm:items-center sm:justify-between">
 		<div class="flex flex-col gap-3">
-			<h2 class="text-2xl text-text">Languages</h2>
+			<h2 class="flex items-center gap-2 text-2xl text-text">
+				<SectionIcon name="globe" class="h-5 w-5 text-primary" />
+				Languages
+			</h2>
 			<ul class="flex flex-wrap gap-2 text-sm text-text-muted">
 				{languages.map((language) => <li>{language}</li>)}
 			</ul>
@@ -64,8 +76,8 @@ const languages = ['Greek', 'English', 'German'];
 
 	<section class="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-16">
 		<p class="max-w-2xl text-text-muted">
-			I take on websites for businesses —{' '}
-			<a href="/projects" class="text-primary hover:underline">check the projects</a>{' '}
+			Maybe your idea is our next project,{' '}
+			<a href="/projects" class="text-primary hover:underline">check my work</a>{' '}
 			and{' '}
 			<a href="/contact" class="text-primary hover:underline">get in touch</a>.
 		</p>
