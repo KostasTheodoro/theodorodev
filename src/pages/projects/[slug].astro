@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { render } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import { getProjects } from '@/lib/content';
 
@@ -12,7 +13,8 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { title, oneLiner, year, role, stack, url, cover } = project.data;
+const { title, oneLiner, year, role, stack, url, cover, testimonial, metric } = project.data;
+const { Content } = await render(project);
 ---
 
 <Layout title={`${title} — theodorodev`}>
@@ -44,5 +46,29 @@ const { title, oneLiner, year, role, stack, url, cover } = project.data;
 				Visit live site
 			</a>
 		</div>
+
+		<div class="flex flex-col gap-6 text-text-muted [&_h2]:text-xl [&_h2]:text-text [&_p]:leading-7">
+			<Content />
+		</div>
+
+		{
+			metric && (
+				<div class="rounded border border-border bg-bg-card px-6 py-8 text-center">
+					<p class="text-3xl text-primary">{metric.value}</p>
+					<p class="text-sm text-text-muted">{metric.label}</p>
+				</div>
+			)
+		}
+
+		{
+			testimonial && (
+				<blockquote class="flex flex-col gap-3 border-l-2 border-primary pl-6">
+					<p class="text-lg text-text">&ldquo;{testimonial.quote}&rdquo;</p>
+					<footer class="text-sm text-text-muted">
+						{testimonial.name} · {testimonial.business}
+					</footer>
+				</blockquote>
+			)
+		}
 	</section>
 </Layout>
