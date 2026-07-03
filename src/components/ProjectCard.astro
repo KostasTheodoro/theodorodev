@@ -4,10 +4,11 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
 	project: CollectionEntry<'projects'>;
+	showYear?: boolean;
 }
 
-const { project } = Astro.props;
-const { slug, title, oneLiner, stack, cover } = project.data;
+const { project, showYear = false } = Astro.props;
+const { slug, title, oneLiner, stack, cover, year } = project.data;
 ---
 
 <a href={`/projects/${slug}`} class="group flex flex-col gap-4">
@@ -17,9 +18,12 @@ const { slug, title, oneLiner, stack, cover } = project.data;
 		transition:name={`project-image-${slug}`}
 		class="aspect-video w-full rounded object-cover"
 	/>
-	<h3 transition:name={`project-title-${slug}`} class="text-lg text-text group-hover:text-primary">
-		{title}
-	</h3>
+	<div class="flex items-center justify-between gap-4">
+		<h3 transition:name={`project-title-${slug}`} class="text-lg text-text group-hover:text-primary">
+			{title}
+		</h3>
+		{showYear && <span class="font-mono text-xs text-text-muted">{year}</span>}
+	</div>
 	<p class="text-sm text-text-muted">{oneLiner}</p>
 	<ul class="flex flex-wrap gap-2">
 		{
