@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import StackBadge from '@/components/StackBadge.astro';
 
 interface Props {
 	project: CollectionEntry<'projects'>;
@@ -26,12 +27,6 @@ const { slug, title, oneLiner, stack, cover, year } = project.data;
 	</div>
 	<p class="text-sm text-text-muted">{oneLiner}</p>
 	<ul class="flex flex-wrap gap-2">
-		{
-			stack.map((item) => (
-				<li class="rounded border border-border px-2 py-0.5 font-mono text-xs text-text-muted">
-					{item}
-				</li>
-			))
-		}
+		{stack.map((item) => <StackBadge label={item} />)}
 	</ul>
 </a>

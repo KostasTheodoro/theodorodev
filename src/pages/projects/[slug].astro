@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
+import StackBadge from '@/components/StackBadge.astro';
 import { getProjects, getAdjacentProjects } from '@/lib/content';
 
 export async function getStaticPaths() {
@@ -36,13 +37,7 @@ const { prev, next } = await getAdjacentProjects(slug, 'en');
 			<span class="font-mono">{year}</span>
 			<span>{role}</span>
 			<ul class="flex flex-wrap gap-2">
-				{
-					stack.map((item) => (
-						<li class="rounded border border-border px-2 py-0.5 font-mono text-xs text-text-muted">
-							{item}
-						</li>
-					))
-				}
+				{stack.map((item) => <StackBadge label={item} />)}
 			</ul>
 			<a
 				href={url}
