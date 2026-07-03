@@ -1,6 +1,8 @@
 ---
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
+import SocialIcon from '@/components/SocialIcon.astro';
+import { siteContact } from '@/lib/site';
 import '@/styles/global.css';
 
 interface Props {
@@ -72,13 +74,41 @@ const { title } = Astro.props;
 
 		<footer class="border-t border-border">
 			<div class="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-8 text-sm text-text-muted">
-				<!-- TODO: review copy — confirm real contact details -->
-				<div class="flex flex-wrap gap-4">
-					<a href="mailto:hello@theodorodev.com" class="hover:text-primary">Email</a>
-					<a href="#" class="hover:text-primary">Phone</a>
-					<a href="#" class="hover:text-primary">WhatsApp</a>
-					<a href="https://github.com/KostasTheodoro" class="hover:text-primary" rel="noopener" target="_blank">GitHub</a>
-					<a href="#" class="hover:text-primary">LinkedIn</a>
+				<div class="flex flex-wrap items-center gap-4">
+					<a href={siteContact.emailHref} class="hover:text-primary" aria-label="Email">
+						<SocialIcon name="email" />
+					</a>
+					<a href={siteContact.phoneHref} class="hover:text-primary" aria-label="Phone">
+						<SocialIcon name="phone" />
+					</a>
+					<a
+						href={siteContact.whatsappHref}
+						class="hover:text-primary"
+						aria-label="WhatsApp"
+						rel="noopener"
+						target="_blank"
+					>
+						<SocialIcon name="whatsapp" />
+					</a>
+					<a
+						href={siteContact.githubHref}
+						class="hover:text-primary"
+						aria-label="GitHub"
+						rel="noopener"
+						target="_blank"
+					>
+						<SocialIcon name="github" />
+					</a>
+					<!-- TODO: connect LinkedIn manually later -->
+					<a
+						href={siteContact.linkedinHref}
+						class="hover:text-primary"
+						aria-label="LinkedIn"
+						rel="noopener"
+						target="_blank"
+					>
+						<SocialIcon name="linkedin" />
+					</a>
 				</div>
 				<p>
 					Built with Astro + React ·
