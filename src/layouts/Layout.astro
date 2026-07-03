@@ -1,6 +1,7 @@
 ---
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
+import Logo from '@/components/Logo.astro';
 import SocialIcon from '@/components/SocialIcon.astro';
 import { siteContact } from '@/lib/site';
 import '@/styles/global.css';
@@ -47,7 +48,10 @@ const { title } = Astro.props;
 	<body class="flex min-h-screen flex-col">
 		<header class="border-b border-border">
 			<nav class="mx-auto flex max-w-5xl items-center justify-between gap-6 px-6 py-4">
-				<a href="/" class="font-mono text-sm text-text">theodorodev</a>
+				<a href="/" class="flex items-center gap-2 font-mono text-sm text-text">
+					<Logo />
+					theodorodev
+				</a>
 				<div class="flex items-center gap-6 text-sm">
 					<a href="/projects" class="text-text hover:text-primary">Projects</a>
 					<a href="/about" class="text-text hover:text-primary">About</a>
