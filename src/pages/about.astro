@@ -1,0 +1,70 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import StackBadge from '@/components/StackBadge.astro';
+import { Content } from '@/content/about.mdx';
+
+// TODO: review — confirm the exact stack list to feature here
+const stackGroups: { category: string; items: string[] }[] = [
+	{ category: 'Frameworks', items: ['Astro', 'React', 'Next.js', 'Node.js'] },
+	{ category: 'Styling', items: ['Tailwind CSS', 'CSS', 'shadcn/ui'] },
+	{ category: 'CMS & Data', items: ['MDX', 'Sanity', 'Supabase', 'PostgreSQL'] },
+	{ category: 'Tooling', items: ['TypeScript', 'Git', 'Vercel', 'Figma'] },
+];
+
+const languages = ['Greek', 'English', 'French'];
+---
+
+<Layout title="About — theodorodev">
+	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-24 md:flex-row md:items-start">
+		<div class="aspect-square w-full max-w-xs shrink-0 rounded border border-border bg-bg-card"></div>
+		<div class="flex flex-col gap-4">
+			<h1 class="text-4xl leading-tight text-text sm:text-5xl">About</h1>
+			<div class="flex max-w-xl flex-col gap-4 text-text-muted">
+				<Content />
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16">
+		<h2 class="text-2xl text-text">Stack</h2>
+		<div class="grid gap-8 sm:grid-cols-2">
+			{
+				stackGroups.map((group) => (
+					<div class="flex flex-col gap-3">
+						<p class="font-mono text-sm text-text-muted">{group.category}</p>
+						<ul class="flex flex-wrap gap-2">
+							{group.items.map((item) => (
+								<StackBadge label={item} />
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16 sm:flex-row sm:items-center sm:justify-between">
+		<div class="flex flex-col gap-3">
+			<h2 class="text-2xl text-text">Languages</h2>
+			<ul class="flex flex-wrap gap-2 text-sm text-text-muted">
+				{languages.map((language) => <li>{language}</li>)}
+			</ul>
+		</div>
+		<a
+			href="/cv.pdf"
+			download
+			class="rounded bg-primary px-5 py-2.5 text-sm text-on-primary hover:opacity-90"
+		>
+			Download CV
+		</a>
+	</section>
+
+	<section class="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-16">
+		<p class="max-w-2xl text-text-muted">
+			I take on websites for businesses —
+			<a href="/projects" class="text-primary hover:underline">check the projects</a>
+			and
+			<a href="/contact" class="text-primary hover:underline">get in touch</a>.
+		</p>
+	</section>
+</Layout>
