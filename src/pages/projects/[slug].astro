@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
+import SectionIcon from '@/components/SectionIcon.astro';
 import StackBadge from '@/components/StackBadge.astro';
 import { getProjects, getAdjacentProjects } from '@/lib/content';
 
@@ -14,7 +15,7 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { slug, title, oneLiner, year, role, stack, url, cover, testimonial, metric } = project.data;
+const { slug, title, oneLiner, year, stack, url, cover, testimonial, metric } = project.data;
 const { Content } = await render(project);
 const { prev, next } = await getAdjacentProjects(slug, 'en');
 ---
@@ -33,20 +34,27 @@ const { prev, next } = await getAdjacentProjects(slug, 'en');
 			</h1>
 			<p class="max-w-2xl text-text-muted">{oneLiner}</p>
 		</div>
-		<div class="flex flex-wrap items-center gap-4 border-y border-border py-4 text-sm text-text-muted">
-			<span class="font-mono">{year}</span>
-			<span>{role}</span>
-			<ul class="flex flex-wrap gap-2">
-				{stack.map((item) => <StackBadge label={item} />)}
-			</ul>
+		<div class="flex flex-col gap-4 border-y border-border py-6 text-sm text-text-muted">
+			<div class="flex items-center gap-2">
+				<SectionIcon name="calendar" class="h-4 w-4 shrink-0 text-primary" />
+				<span>Year of first development: <span class="font-mono text-text">{year}</span></span>
+			</div>
+			<div class="flex flex-wrap items-center gap-2">
+				<SectionIcon name="stack" class="h-4 w-4 shrink-0 text-primary" />
+				<span>Stack:</span>
+				<ul class="flex flex-wrap gap-2">
+					{stack.map((item) => <StackBadge label={item} />)}
+				</ul>
+			</div>
 			<a
 				href={url}
 				target="_blank"
 				rel="noopener"
-				class="ml-auto rounded bg-primary px-4 py-2 text-sm text-on-primary hover:opacity-90"
+				class="flex w-fit items-center gap-2 rounded bg-primary px-4 py-2 text-sm text-on-primary hover:opacity-90"
 			>
 				{/* TODO: review copy */}
 				Visit live site
+				<SectionIcon name="external" class="h-4 w-4" />
 			</a>
 		</div>
 

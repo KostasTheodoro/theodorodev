@@ -1,0 +1,14 @@
+---
+import SectionIcon from '@/components/SectionIcon.astro';
+
+interface Props {
+	icon: 'problem' | 'built';
+}
+
+const { icon } = Astro.props;
+---
+
+<h2 class="flex items-center gap-2">
+	<SectionIcon name={icon} class="h-5 w-5 shrink-0 text-primary" />
+	<slot />
+</h2>
