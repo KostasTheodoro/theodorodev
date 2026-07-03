@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '@/layouts/Layout.astro';
+import { getProjects } from '@/lib/content';
+
+export async function getStaticPaths() {
+	const projects = await getProjects('en');
+	return projects.map((project) => ({
+		params: { slug: project.data.slug },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { title, oneLiner, year, role, stack, url, cover } = project.data;
+---
+
+<Layout title={`${title} — theodorodev`}>
+	<section class="mx-auto flex max-w-3xl flex-col gap-8 px-6 py-24">
+		<Image src={cover} alt={title} class="aspect-video w-full rounded object-cover" />
+		<div class="flex flex-col gap-4">
+			<h1 class="text-4xl text-text sm:text-5xl">{title}</h1>
+			<p class="max-w-2xl text-text-muted">{oneLiner}</p>
+		</div>
+		<div class="flex flex-wrap items-center gap-4 border-y border-border py-4 text-sm text-text-muted">
+			<span class="font-mono">{year}</span>
+			<span>{role}</span>
+			<ul class="flex flex-wrap gap-2">
+				{
+					stack.map((item) => (
+						<li class="rounded border border-border px-2 py-0.5 font-mono text-xs text-text-muted">
+							{item}
+						</li>
+					))
+				}
+			</ul>
+			<a
+				href={url}
+				target="_blank"
+				rel="noopener"
+				class="ml-auto rounded bg-primary px-4 py-2 text-sm text-on-primary hover:opacity-90"
+			>
+				{/* TODO: review copy */}
+				Visit live site
+			</a>
+		</div>
+	</section>
+</Layout>
