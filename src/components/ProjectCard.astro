@@ -14,16 +14,14 @@ const { slug, title, oneLiner, stack, cover, year } = project.data;
 
 <a
 	href={`/projects/${slug}`}
-	class="group flex flex-col gap-4 rounded-lg border border-border bg-bg-card p-3 hover:border-primary"
+	class="group flex flex-col gap-4 rounded-lg border border-border bg-bg-card p-3 hover:scale-[1.02] hover:border-primary"
 >
-	<div class="overflow-hidden rounded">
-		<Image
-			src={cover}
-			alt={title}
-			transition:name={`project-image-${slug}`}
-			class="aspect-video w-full object-cover group-hover:scale-105"
-		/>
-	</div>
+	<Image
+		src={cover}
+		alt={title}
+		transition:name={`project-image-${slug}`}
+		class="aspect-video w-full rounded object-cover"
+	/>
 	<div class="flex items-center justify-between gap-4 px-1">
 		<h3 transition:name={`project-title-${slug}`} class="text-lg text-text group-hover:text-primary">
 			{title}
@@ -39,11 +37,9 @@ const { slug, title, oneLiner, stack, cover, year } = project.data;
 <style>
 	@media (prefers-reduced-motion: no-preference) {
 		a {
-			transition: border-color 300ms ease;
-		}
-
-		img {
-			transition: transform 300ms ease;
+			transition:
+				border-color 300ms ease,
+				scale 300ms ease;
 		}
 	}
 </style>
