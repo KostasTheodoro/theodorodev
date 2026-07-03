@@ -7,6 +7,8 @@ import vercel from '@astrojs/vercel';
 
 import mdx from '@astrojs/mdx';
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
@@ -34,5 +36,5 @@ export default defineConfig({
     }
   ],
 
-  integrations: [mdx()]
+  integrations: [mdx(), react()]
 });
