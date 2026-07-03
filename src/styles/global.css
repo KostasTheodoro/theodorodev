@@ -13,6 +13,7 @@
 
   /* availability badge only — not part of the locked palette above */
   --status-available: #3fbf7f;
+  --status-busy: #e2574c;
 }
 
 [data-theme="light"] {
@@ -25,6 +26,7 @@
   --on-primary: #faf6ef;
   --accent: #e8890c;
   --status-available: #1f8f52;
+  --status-busy: #c0392b;
 }
 
 @theme inline {
@@ -38,7 +40,7 @@
   --color-accent: var(--accent);
   --color-status-available: var(--status-available);
   --color-status-limited: var(--accent);
-  --color-status-busy: var(--primary);
+  --color-status-busy: var(--status-busy);
 
   --font-sans: var(--font-instrument-sans), Inter, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
