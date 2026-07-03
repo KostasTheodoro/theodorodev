@@ -26,3 +26,9 @@ export async function getProjectBySlug(slug: string, lang: Lang) {
   );
   return entries[0];
 }
+
+export async function getAdjacentProjects(slug: string, lang: Lang) {
+  const entries = await getProjects(lang);
+  const index = entries.findIndex((entry) => entry.data.slug === slug);
+  return { prev: entries[index - 1], next: entries[index + 1] };
+}
