@@ -2,15 +2,18 @@
 import Layout from '@/layouts/Layout.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
 import { getFeaturedProjects } from '@/lib/content';
+import { availabilityStatus, availabilityCopy } from '@/lib/availability';
 
 const featured = await getFeaturedProjects('en');
+const { label: availabilityLabel, dotClass: availabilityDotClass } =
+	availabilityCopy[availabilityStatus];
 ---
 
 <Layout title="theodorodev — web developer, Athens">
 	<section class="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-24">
 		<div class="flex items-center gap-2 self-start rounded-full border border-border px-3 py-1 text-xs text-text-muted">
-			<span class="h-2 w-2 rounded-full bg-accent"></span>
-			Available for new projects
+			<span class={`h-2 w-2 rounded-full ${availabilityDotClass}`}></span>
+			{availabilityLabel}
 		</div>
 		<p class="font-mono text-sm text-text-muted">
 			{/* TODO: review copy */}

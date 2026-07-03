@@ -10,6 +10,9 @@
   --primary: #4fb3c6;
   --on-primary: #0b1b20;
   --accent: #f0a63c;
+
+  /* availability badge only — not part of the locked palette above */
+  --status-available: #3fbf7f;
 }
 
 [data-theme="light"] {
@@ -21,6 +24,7 @@
   --primary: #0e5a6d;
   --on-primary: #faf6ef;
   --accent: #e8890c;
+  --status-available: #1f8f52;
 }
 
 @theme inline {
@@ -32,6 +36,9 @@
   --color-primary: var(--primary);
   --color-on-primary: var(--on-primary);
   --color-accent: var(--accent);
+  --color-status-available: var(--status-available);
+  --color-status-limited: var(--accent);
+  --color-status-busy: var(--primary);
 
   --font-sans: var(--font-instrument-sans), Inter, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
