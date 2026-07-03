@@ -14,30 +14,29 @@ const links: { name: 'email' | 'phone' | 'whatsapp' | 'github' | 'linkedin'; lab
 ---
 
 <Layout title="Contact — theodorodev">
-	<section class="mx-auto flex max-w-5xl flex-col gap-10 px-6 py-24">
-		<h1 class="text-4xl leading-tight text-text sm:text-5xl">Contact</h1>
-
-		<ul class="flex flex-col gap-4">
-			{
-				links.map((link) => (
-					<li>
-						<a
-							href={link.href}
-							class="flex items-center gap-3 text-text hover:text-primary"
-							target={link.name === 'email' || link.name === 'phone' ? undefined : '_blank'}
-							rel={link.name === 'email' || link.name === 'phone' ? undefined : 'noopener'}
-						>
-							<SocialIcon name={link.name} />
-							{link.label}
-						</a>
-					</li>
-				))
-			}
-		</ul>
-
-		<div class="max-w-md">
-			{/* the only React island in the project — deferred to idle since the form is a below-the-fold, low-priority interaction on an otherwise static page */}
-			<ContactForm client:idle />
+	<section class="mx-auto grid max-w-5xl gap-12 px-6 py-24 md:grid-cols-2 md:items-start">
+		<div class="flex flex-col gap-8">
+			<h1 class="text-4xl leading-tight text-text sm:text-5xl">Contact me</h1>
+			<ul class="flex flex-col gap-4">
+				{
+					links.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								class="flex items-center gap-3 text-text hover:text-primary"
+								target={link.name === 'email' || link.name === 'phone' ? undefined : '_blank'}
+								rel={link.name === 'email' || link.name === 'phone' ? undefined : 'noopener'}
+							>
+								<SocialIcon name={link.name} />
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
 		</div>
+
+		{/* the only React island in the project — deferred to idle since the form is a below-the-fold, low-priority interaction on an otherwise static page */}
+		<ContactForm client:idle />
 	</section>
 </Layout>

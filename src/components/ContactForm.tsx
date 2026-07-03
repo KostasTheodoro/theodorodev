@@ -69,33 +69,35 @@ export default function ContactForm() {
 				}}
 				className="flex flex-col gap-4"
 			>
-				<div className="flex flex-col gap-1.5">
-					<label htmlFor="contact-name" className="text-sm text-text">
-						Name
-					</label>
-					<input
-						id="contact-name"
-						name="name"
-						type="text"
-						required
-						value={name}
-						onChange={(event) => setName(event.target.value)}
-						className="rounded border border-border bg-bg-card px-3 py-2 text-sm text-text outline-none focus:ring-2 focus:ring-primary"
-					/>
-				</div>
-				<div className="flex flex-col gap-1.5">
-					<label htmlFor="contact-email" className="text-sm text-text">
-						Email
-					</label>
-					<input
-						id="contact-email"
-						name="email"
-						type="email"
-						required
-						value={email}
-						onChange={(event) => setEmail(event.target.value)}
-						className="rounded border border-border bg-bg-card px-3 py-2 text-sm text-text outline-none focus:ring-2 focus:ring-primary"
-					/>
+				<div className="grid gap-4 sm:grid-cols-2">
+					<div className="flex flex-col gap-1.5">
+						<label htmlFor="contact-name" className="text-sm text-text">
+							Name
+						</label>
+						<input
+							id="contact-name"
+							name="name"
+							type="text"
+							required
+							value={name}
+							onChange={(event) => setName(event.target.value)}
+							className="rounded border border-border bg-bg-card px-3 py-2 text-sm text-text outline-none focus:ring-2 focus:ring-primary"
+						/>
+					</div>
+					<div className="flex flex-col gap-1.5">
+						<label htmlFor="contact-email" className="text-sm text-text">
+							Email
+						</label>
+						<input
+							id="contact-email"
+							name="email"
+							type="email"
+							required
+							value={email}
+							onChange={(event) => setEmail(event.target.value)}
+							className="rounded border border-border bg-bg-card px-3 py-2 text-sm text-text outline-none focus:ring-2 focus:ring-primary"
+						/>
+					</div>
 				</div>
 				<div className="flex flex-col gap-1.5">
 					<label htmlFor="contact-message" className="text-sm text-text">
