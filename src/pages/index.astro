@@ -46,10 +46,7 @@ const { label: availabilityLabel, dotClass: availabilityDotClass } =
 	</section>
 
 	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16">
-		<h2 class="text-2xl text-text">
-			{/* TODO: review copy */}
-			Selected work
-		</h2>
+		<h2 class="text-2xl text-text">My recent projects</h2>
 		<div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
 			{featured.map((project) => <ProjectCard project={project} />)}
 		</div>
