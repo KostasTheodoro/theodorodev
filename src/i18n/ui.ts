@@ -34,6 +34,7 @@ const en = {
   'home.aboutTeaser':
     "I'm Kostas, a developer based in Athens. I specialize in the React ecosystem, and I'm always looking for new challenges and projects.",
   'home.moreAboutMe': 'More about me',
+  'home.aboutAvatarAlt': 'Portrait of Kostas Theodoropoulos',
 
   'meta.home.title': 'theodorodev — web developer, Athens',
   'meta.home.description':
@@ -99,6 +100,7 @@ const el: Record<keyof typeof en, string> = {
   'home.aboutTeaser':
     'Είμαι ο Κώστας, developer με έδρα την Αθήνα. Ειδικεύομαι στο οικοσύστημα του React και είμαι πάντα ανοιχτός σε νέες προκλήσεις και έργα.',
   'home.moreAboutMe': 'Περισσότερα για μένα',
+  'home.aboutAvatarAlt': 'Πορτρέτο του Κώστα Θεοδωρόπουλου',
 
   'meta.home.title': 'theodorodev — web developer, Αθήνα',
   'meta.home.description':
