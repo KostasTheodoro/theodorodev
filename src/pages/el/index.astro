@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import HomeContent from '@/components/pages/HomeContent.astro';
+import { useTranslations } from '@/i18n/utils';
+
+const t = useTranslations('el');
+---
+
+<Layout title={t('meta.home.title')} description={t('meta.home.description')}>
+	<HomeContent lang="el" />
+</Layout>

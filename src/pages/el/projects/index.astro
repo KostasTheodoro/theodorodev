@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ProjectsIndexContent from '@/components/pages/ProjectsIndexContent.astro';
+import { useTranslations } from '@/i18n/utils';
+
+const t = useTranslations('el');
+---
+
+<Layout title={t('meta.projects.title')} description={t('meta.projects.description')}>
+	<ProjectsIndexContent lang="el" />
+</Layout>

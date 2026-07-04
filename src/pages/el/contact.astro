@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ContactContent from '@/components/pages/ContactContent.astro';
+import { useTranslations } from '@/i18n/utils';
+
+const t = useTranslations('el');
+---
+
+<Layout title={t('meta.contact.title')} description={t('meta.contact.description')}>
+	<ContactContent lang="el" />
+</Layout>

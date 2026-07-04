@@ -1,0 +1,21 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ProjectDetailContent from '@/components/pages/ProjectDetailContent.astro';
+import { getProjects, getAdjacentProjects } from '@/lib/content';
+
+export async function getStaticPaths() {
+	const projects = await getProjects('el');
+	return projects.map((project) => ({
+		params: { slug: project.data.slug },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { title, oneLiner } = project.data;
+const { prev, next } = await getAdjacentProjects(project.data.slug, 'el');
+---
+
+<Layout title={`${title} — theodorodev`} description={oneLiner}>
+	<ProjectDetailContent lang="el" project={project} prev={prev} next={next} />
+</Layout>
