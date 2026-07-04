@@ -1,79 +1,11 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Hero from '@/components/Hero.astro';
-import ProjectCard from '@/components/ProjectCard.astro';
-import PersonSchema from '@/components/PersonSchema.astro';
-import OutlineButton from '@/components/OutlineButton.astro';
-import { getFeaturedProjects } from '@/lib/content';
+import HomeContent from '@/components/pages/HomeContent.astro';
+import { useTranslations } from '@/i18n/utils';
 
-const featured = await getFeaturedProjects('en');
+const t = useTranslations('en');
 ---
 
-<Layout
-	title="theodorodev — web developer, Athens"
-	description="I design and build fast, focused websites for small businesses and teams who need results, not bloat."
->
-	<PersonSchema />
-	<Hero />
-
-	<section class="relative isolate overflow-hidden">
-		<div class="work-glow" aria-hidden="true"></div>
-		<div class="mx-auto max-w-5xl px-6 py-16">
-			<div class="flex flex-col gap-8 rounded-lg border border-border bg-bg-card/50 p-8 sm:p-10">
-				<p class="font-mono text-sm text-text-muted">// work</p>
-				<h2 class="text-2xl text-text">My work</h2>
-				<div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
-					{featured.map((project) => <ProjectCard project={project} />)}
-				</div>
-				<div>
-					<OutlineButton href="/projects">View all projects</OutlineButton>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="relative isolate overflow-hidden">
-		<div class="about-glow" aria-hidden="true"></div>
-		<div class="mx-auto max-w-5xl px-6 py-16">
-			<div class="flex flex-col gap-4 rounded-lg border border-border bg-bg-card/50 p-8 sm:p-10">
-				<p class="font-mono text-sm text-text-muted">// about</p>
-				<h2 class="text-2xl text-text">About</h2>
-				<p class="max-w-xl text-text-muted">
-					I'm Kostas, a developer based in Athens. I specialize in the React ecosystem, and I'm
-					always looking for new challenges and projects.
-				</p>
-				<div>
-					<OutlineButton href="/about">More about me</OutlineButton>
-				</div>
-			</div>
-		</div>
-	</section>
+<Layout title={t('meta.home.title')} description={t('meta.home.description')}>
+	<HomeContent lang="en" />
 </Layout>
-
-<style>
-	.work-glow {
-		position: absolute;
-		inset: 0;
-		z-index: -1;
-		pointer-events: none;
-		background: radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--primary) 12%, transparent) 0%, transparent 55%);
-	}
-
-	:global([data-theme='light']) .work-glow {
-		background: radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--primary) 6%, transparent) 0%, transparent 55%);
-	}
-
-	.about-glow {
-		position: absolute;
-		inset: 0;
-		z-index: -1;
-		pointer-events: none;
-		background: radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--petrol-mid) 14%, transparent) 0%, transparent 55%);
-	}
-
-	/* same reasoning as Hero's light-theme glow override: --petrol-mid reads muddy at
-	   full strength against the light surface, so soften it */
-	:global([data-theme='light']) .about-glow {
-		background: radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--petrol-mid) 8%, transparent) 0%, transparent 55%);
-	}
-</style>

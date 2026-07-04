@@ -1,0 +1,80 @@
+---
+import Hero from '@/components/Hero.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import PersonSchema from '@/components/PersonSchema.astro';
+import OutlineButton from '@/components/OutlineButton.astro';
+import { getFeaturedProjects } from '@/lib/content';
+import { useTranslations } from '@/i18n/utils';
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const featured = await getFeaturedProjects(lang);
+const projectsHref = lang === 'el' ? '/el/projects' : '/projects';
+const aboutHref = lang === 'el' ? '/el/about' : '/about';
+---
+
+<PersonSchema />
+<Hero lang={lang} />
+
+<section class="relative isolate overflow-hidden">
+	<div class="work-glow" aria-hidden="true"></div>
+	<div class="mx-auto max-w-5xl px-6 py-16">
+		<div class="flex flex-col gap-8 rounded-lg border border-border bg-bg-card/50 p-8 sm:p-10">
+			<p class="font-mono text-sm text-text-muted">{t('home.workEyebrow')}</p>
+			<h2 class="text-2xl text-text">{t('home.workHeading')}</h2>
+			<div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+				{featured.map((project) => <ProjectCard project={project} />)}
+			</div>
+			<div>
+				<OutlineButton href={projectsHref}>{t('home.viewAllProjects')}</OutlineButton>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="relative isolate overflow-hidden">
+	<div class="about-glow" aria-hidden="true"></div>
+	<div class="mx-auto max-w-5xl px-6 py-16">
+		<div class="flex flex-col gap-4 rounded-lg border border-border bg-bg-card/50 p-8 sm:p-10">
+			<p class="font-mono text-sm text-text-muted">{t('home.aboutEyebrow')}</p>
+			<h2 class="text-2xl text-text">{t('home.aboutHeading')}</h2>
+			<p class="max-w-xl text-text-muted">{t('home.aboutTeaser')}</p>
+			<div>
+				<OutlineButton href={aboutHref}>{t('home.moreAboutMe')}</OutlineButton>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.work-glow {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		background: radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--primary) 12%, transparent) 0%, transparent 55%);
+	}
+
+	:global([data-theme='light']) .work-glow {
+		background: radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--primary) 6%, transparent) 0%, transparent 55%);
+	}
+
+	.about-glow {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		background: radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--petrol-mid) 14%, transparent) 0%, transparent 55%);
+	}
+
+	/* same reasoning as Hero's light-theme glow override: --petrol-mid reads muddy at
+	   full strength against the light surface, so soften it */
+	:global([data-theme='light']) .about-glow {
+		background: radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--petrol-mid) 8%, transparent) 0%, transparent 55%);
+	}
+</style>

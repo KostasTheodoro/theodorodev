@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Calendar, Layers3, ExternalLink } from 'lucide-astro';
+import StackBadge from '@/components/StackBadge.astro';
+import Testimonial from '@/components/Testimonial.astro';
+import { useTranslations } from '@/i18n/utils';
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+	lang: Lang;
+	project: CollectionEntry<'projects'>;
+	prev?: CollectionEntry<'projects'>;
+	next?: CollectionEntry<'projects'>;
+}
+
+const { lang, project, prev, next } = Astro.props;
+const t = useTranslations(lang);
+const { slug, title, oneLiner, year, stack, url, cover, testimonial, metric } = project.data;
+const { Content } = await render(project);
+const projectsPrefix = lang === 'el' ? '/el/projects' : '/projects';
+---
+
+<section class="mx-auto flex max-w-3xl flex-col gap-8 px-6 py-24">
+	<Image
+		src={cover}
+		alt={title}
+		transition:name={`project-image-${slug}`}
+		class="aspect-video w-full rounded object-cover"
+	/>
+	<div class="flex flex-col gap-4">
+		<h1 transition:name={`project-title-${slug}`} class="text-4xl text-text sm:text-5xl">
+			{title}
+		</h1>
+		<p class="max-w-2xl text-text-muted">{oneLiner}</p>
+	</div>
+	<div class="flex flex-col gap-4 border-y border-border py-6 text-sm text-text-muted">
+		<div class="flex items-center gap-2">
+			<Calendar class="h-4 w-4 shrink-0 text-primary" />
+			<span>{t('project.year')} <span class="font-mono text-text">{year}</span></span>
+		</div>
+		<div class="flex flex-wrap items-center gap-2">
+			<Layers3 class="h-4 w-4 shrink-0 text-primary" />
+			<span>{t('project.stack')}</span>
+			<ul class="flex flex-wrap gap-2">
+				{stack.map((item) => <StackBadge label={item} />)}
+			</ul>
+		</div>
+		<a
+			href={url}
+			target="_blank"
+			rel="noopener"
+			class="flex w-fit items-center gap-2 rounded bg-primary px-4 py-2 text-sm text-on-primary hover:opacity-90"
+		>
+			{/* TODO: review copy */}
+			{t('project.visitSite')}
+			<ExternalLink class="h-4 w-4" />
+		</a>
+	</div>
+
+	<div class="flex flex-col gap-6 text-text-muted [&_h2]:text-xl [&_h2]:text-text [&_p]:leading-7">
+		<Content />
+	</div>
+
+	{
+		metric && (
+			<div class="rounded border border-border bg-bg-card px-6 py-8 text-center">
+				<p class="text-3xl text-primary">{metric.value}</p>
+				<p class="text-sm text-text-muted">{metric.label}</p>
+			</div>
+		)
+	}
+
+	{
+		testimonial && (
+			<Testimonial
+				quote={testimonial.quote}
+				name={testimonial.name}
+				role={testimonial.business}
+				initials={testimonial.initials}
+				avatarSrc={testimonial.avatarSrc}
+			/>
+		)
+	}
+
+	<nav class="flex items-center justify-between gap-4 border-t border-border pt-8 text-sm">
+		{
+			prev ? (
+				<a href={`${projectsPrefix}/${prev.data.slug}`} class="text-text hover:text-primary">
+					&larr; {prev.data.title}
+				</a>
+			) : (
+				<span />
+			)
+		}
+		{
+			next && (
+				<a href={`${projectsPrefix}/${next.data.slug}`} class="text-text hover:text-primary">
+					{next.data.title} &rarr;
+				</a>
+			)
+		}
+	</nav>
+</section>

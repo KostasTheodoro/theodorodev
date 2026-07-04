@@ -2,8 +2,17 @@
 import TerminalWindow from '@/components/TerminalWindow.astro';
 import OutlineButton from '@/components/OutlineButton.astro';
 import { availabilityStatus, availabilityCopy } from '@/lib/availability';
+import { useTranslations } from '@/i18n/utils';
+import type { Lang } from '@/i18n/ui';
 
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
 const { label, dotClass } = availabilityCopy[availabilityStatus];
+const contactHref = lang === 'el' ? '/el/contact' : '/contact';
 ---
 
 <section class="relative isolate overflow-hidden">
@@ -40,16 +49,16 @@ const { label, dotClass } = availabilityCopy[availabilityStatus];
 			</div>
 
 			<h1 class="text-[30px] font-bold leading-tight text-text sm:text-4xl md:text-[36px]">
-				I build websites people<br />
-				<span class="text-primary">actually want to use.</span>
+				{t('hero.titleLine1')}<br />
+				<span class="text-primary">{t('hero.titleAccent')}</span>
 			</h1>
 
 			<p class="max-w-[400px] text-text-muted">
-				Fast, modern, and built to last, with React, Next.js, and whatever gets the job done right. Got an idea? I'm in.
+				{t('hero.subtext')}
 			</p>
 
 			<div>
-				<OutlineButton href="/contact">Get in touch</OutlineButton>
+				<OutlineButton href={contactHref}>{t('hero.cta')}</OutlineButton>
 			</div>
 		</div>
 

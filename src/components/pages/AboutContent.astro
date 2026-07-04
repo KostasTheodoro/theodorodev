@@ -1,0 +1,104 @@
+---
+import StackBadge from '@/components/StackBadge.astro';
+import PersonSchema from '@/components/PersonSchema.astro';
+import { Code, Layers, Palette, Database, Wrench, MapPin, Calendar, Code2, Languages } from 'lucide-astro';
+import { useTranslations } from '@/i18n/utils';
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const { Content } =
+	lang === 'el' ? await import('@/content/about.el.mdx') : await import('@/content/about.mdx');
+
+type StackGroup = { category: string; icon: typeof Code; items: string[] };
+
+const stackGroups: StackGroup[] = [
+	{ category: 'Basics', icon: Code, items: ['HTML', 'CSS', 'JavaScript', 'TypeScript'] },
+	{ category: 'Frameworks', icon: Layers, items: ['React', 'Astro', 'Next.js', 'Node.js', 'React Router'] },
+	{ category: 'Styling', icon: Palette, items: ['Tailwind CSS', 'Sass', 'shadcn/ui', 'Framer Motion'] },
+	{ category: 'CMS & Data', icon: Database, items: ['MDX', 'Sanity', 'Supabase', 'PostgreSQL', 'Contentful'] },
+	{ category: 'Tooling', icon: Wrench, items: ['Git', 'Vercel', 'Figma', 'TanStack Query', 'bun'] },
+];
+
+type QuickFact = { icon: typeof MapPin; label: string; value: string; accentValue?: boolean };
+
+const quickFacts: QuickFact[] = [
+	{ icon: MapPin, label: 'location', value: 'Athens, GR' },
+	{ icon: Calendar, label: 'coding_since', value: '2021' },
+	{ icon: Code2, label: 'focus', value: 'React ecosystem', accentValue: true },
+	{ icon: Languages, label: 'languages', value: 'EL · EN · DE' },
+];
+
+const projectsHref = lang === 'el' ? '/el/projects' : '/projects';
+const contactHref = lang === 'el' ? '/el/contact' : '/contact';
+---
+
+<PersonSchema />
+<section class="mx-auto flex max-w-5xl flex-col gap-10 px-6 py-24">
+	<h1 class="text-4xl leading-tight text-text sm:text-5xl">{t('about.heading')}</h1>
+
+	<div class="grid grid-cols-2 gap-px overflow-hidden rounded border border-petrol-mid/25 bg-petrol-mid/25 sm:grid-cols-4">
+		{
+			quickFacts.map(({ icon: Icon, label, value, accentValue }) => (
+				<div class="flex flex-col gap-1.5 bg-bg px-4 py-3.5">
+					<p class="flex items-center gap-1.5 font-mono text-xs text-text-muted">
+						<Icon class="h-3.5 w-3.5 text-petrol-mid" aria-hidden="true" />
+						{label}
+					</p>
+					<p class={`font-mono text-sm ${accentValue ? 'text-primary' : 'text-text'}`}>{value}</p>
+				</div>
+			))
+		}
+	</div>
+
+	<div class="flex max-w-2xl flex-col gap-8">
+		<Content />
+	</div>
+</section>
+
+<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16">
+	<p class="font-mono text-sm text-text-muted">// stack</p>
+	<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+		{
+			stackGroups.map((group) => {
+				const Icon = group.icon;
+				return (
+					<div class="flex flex-col gap-3">
+						<p class="flex items-center gap-2 font-mono text-sm text-text-muted">
+							<Icon class="h-4 w-4 text-primary" />
+							{group.category}
+						</p>
+						<ul class="flex flex-wrap gap-2">
+							{group.items.map((item) => (
+								<StackBadge label={item} />
+							))}
+						</ul>
+					</div>
+				);
+			})
+		}
+	</div>
+	<!-- <div>
+		<a
+			href="/cv.pdf"
+			download
+			class="rounded bg-primary px-5 py-2.5 text-sm text-on-primary hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+		>
+			Download CV
+		</a>
+	</div> -->
+</section>
+
+<section class="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-16">
+	<p class="max-w-2xl text-text-muted">
+		{t('about.ctaPre')}{' '}
+		<a href={projectsHref} class="text-primary hover:underline">{t('about.ctaWork')}</a>{' '}
+		{t('about.ctaMid')}{' '}
+		<a href={contactHref} class="text-primary hover:underline">{t('about.ctaContact')}</a>.
+	</p>
+</section>

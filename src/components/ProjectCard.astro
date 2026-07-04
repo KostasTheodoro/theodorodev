@@ -13,7 +13,7 @@ const { slug, title, oneLiner, stack, cover, year } = project.data;
 ---
 
 <a
-	href={`/projects/${slug}`}
+	href={`${project.data.lang === 'el' ? '/el' : ''}/projects/${slug}`}
 	class="group flex flex-col gap-4 rounded-lg border border-border bg-bg-card p-3 hover:scale-[1.02] hover:border-primary"
 >
 	<Image
