@@ -1,10 +1,13 @@
 ---
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { Menu, X } from 'lucide-astro';
 import Logo from '@/components/Logo.astro';
 import SocialIcon from '@/components/SocialIcon.astro';
 import { siteContact } from '@/lib/site';
+import { useTranslations, getLangFromUrl, getLogicalPath } from '@/i18n/utils';
+
 import '@/styles/global.css';
 
 interface Props {
@@ -15,12 +18,30 @@ interface Props {
 
 const { title, description, image } = Astro.props;
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImagePath = image ?? `/og${Astro.url.pathname === '/' ? '/home' : Astro.url.pathname.replace(/\/$/, '')}.png`;
+
+const ogPathname = Astro.url.pathname.replace(/\/$/, '');
+const ogKey = ogPathname === '' ? '/home' : ogPathname === '/el' ? '/el/home' : ogPathname;
+const ogImagePath = image ?? `/og${ogKey}.png`;
 const ogImageURL = new URL(ogImagePath, Astro.site);
+
+const logicalPath = getLogicalPath(Astro.url);
+const enURL = new URL(getRelativeLocaleUrl('en', logicalPath), Astro.site);
+const elURL = new URL(getRelativeLocaleUrl('el', logicalPath), Astro.site);
+const switchURL = lang === 'en' ? elURL : enURL;
+const switchLabel = lang === 'en' ? 'EL' : 'EN';
+
+const navLinks = [
+	{ href: getRelativeLocaleUrl(lang, 'projects'), label: t('nav.projects') },
+	{ href: getRelativeLocaleUrl(lang, 'about'), label: t('nav.about') },
+	{ href: getRelativeLocaleUrl(lang, 'contact'), label: t('nav.contact') },
+];
 ---
 
-<html lang="en">
+<html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -47,7 +68,9 @@ const ogImageURL = new URL(ogImagePath, Astro.site);
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImageURL} />
 
-		<!-- hreflang alternates: add in P6 once /el/ routes exist -->
+		<link rel="alternate" hreflang="en" href={enURL} />
+		<link rel="alternate" hreflang="el" href={elURL} />
+		<link rel="alternate" hreflang="x-default" href={enURL} />
 
 		<Font cssVariable="--font-instrument-sans" preload />
 		<Font cssVariable="--font-jetbrains-mono" />
@@ -77,11 +100,10 @@ const ogImageURL = new URL(ogImagePath, Astro.site);
 					theodorodev
 				</a>
 				<div class="flex items-center gap-4 text-sm sm:gap-6">
-					<a href="/projects" class="hidden text-text hover:text-primary md:inline">Projects</a>
-					<a href="/about" class="hidden text-text hover:text-primary md:inline">About</a>
-					<a href="/contact" class="hidden text-text hover:text-primary md:inline">Contact</a>
-					<!-- TODO: review copy — wired to real /el/ routes in P6 -->
-					<a href="#" class="font-mono text-text-muted hover:text-primary" aria-label="Switch to Greek">EL</a>
+					{navLinks.map((link) => (
+						<a href={link.href} class="hidden text-text hover:text-primary md:inline">{link.label}</a>
+					))}
+					<a href={switchURL} class="font-mono text-text-muted hover:text-primary" aria-label={t('switch.aria')}>{switchLabel}</a>
 					<button
 						id="theme-toggle"
 						type="button"
@@ -115,21 +137,13 @@ const ogImageURL = new URL(ogImagePath, Astro.site);
 				id="mobile-menu-panel"
 				class="absolute inset-x-0 top-full z-20 hidden flex-col gap-1 border-t border-border bg-bg-card px-6 py-4 text-sm md:hidden"
 			>
-				<a
-					href="/projects"
-					class="rounded px-3 py-3 text-text hover:bg-bg hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-					>Projects</a
-				>
-				<a
-					href="/about"
-					class="rounded px-3 py-3 text-text hover:bg-bg hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-					>About</a
-				>
-				<a
-					href="/contact"
-					class="rounded px-3 py-3 text-text hover:bg-bg hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-					>Contact</a
-				>
+				{navLinks.map((link) => (
+					<a
+						href={link.href}
+						class="rounded px-3 py-3 text-text hover:bg-bg hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+						>{link.label}</a
+					>
+				))}
 			</div>
 		</header>
 
@@ -175,8 +189,8 @@ const ogImageURL = new URL(ogImagePath, Astro.site);
 						<SocialIcon name="linkedin" />
 					</a>
 				</div>
-				<p>Built with <span class="text-primary">&hearts;</span> &middot; Astro + React</p>
-				<p>&copy; {new Date().getFullYear()} Kostas Theodoropoulos &middot; All rights reserved</p>
+				<p>{t('footer.builtWith')} <span class="text-primary">&hearts;</span> &middot; Astro + React</p>
+				<p>&copy; {new Date().getFullYear()} Kostas Theodoropoulos &middot; {t('footer.rights')}</p>
 			</div>
 		</footer>
 
