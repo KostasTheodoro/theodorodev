@@ -17,18 +17,21 @@ const { label, dotClass } = availabilityCopy[availabilityStatus];
 				<span>status: {label}</span>
 			</div>
 
-			<div class="ide-snippet flex gap-3 rounded-md px-3 py-2.5 font-mono text-[13px] leading-relaxed" aria-hidden="true">
-				<div class="flex flex-col text-right text-text-muted/60 select-none">
+			<div
+				class="ide-snippet flex gap-3 overflow-x-auto rounded-md px-3 py-2.5 font-mono text-[11px] leading-relaxed sm:text-[13px]"
+				aria-hidden="true"
+			>
+				<div class="flex shrink-0 flex-col text-right text-text-muted/60 select-none">
 					<span>1</span>
 					<span>2</span>
 				</div>
 				<div class="flex flex-col">
-					<p>
+					<p class="whitespace-nowrap">
 						<span class="font-semibold text-primary">const</span> <span class="text-text">developer</span> = <span
 							class="text-text">"Kostas Theodoropoulos"</span
 						>;
 					</p>
-					<p>
+					<p class="whitespace-nowrap">
 						<span class="font-semibold text-primary">await</span> <span class="font-semibold text-primary">ship</span>(<span
 							class="text-text">yourIdea</span
 						>);<span class="cursor"></span>
