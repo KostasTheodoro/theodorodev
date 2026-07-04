@@ -1,24 +1,28 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import SectionIcon from '@/components/SectionIcon.astro';
 import StackBadge from '@/components/StackBadge.astro';
 import PersonSchema from '@/components/PersonSchema.astro';
 import { Content } from '@/content/about.mdx';
+import { Code, Layers, Palette, Database, Wrench, MapPin, Calendar, Code2, Languages } from 'lucide-astro';
 
-type StackIcon = 'code' | 'layers' | 'palette' | 'database' | 'tool';
+type StackGroup = { category: string; icon: typeof Code; items: string[] };
 
-// TODO: review — confirm the exact stack list to feature here
-const stackGroups: { category: string; icon: StackIcon; items: string[] }[] = [
-	{ category: 'Basics', icon: 'code', items: ['HTML', 'CSS', 'JavaScript', 'TypeScript'] },
-	{ category: 'Frameworks', icon: 'layers', items: ['React', 'Astro', 'Next.js', 'Node.js', 'React Router'] },
-	{ category: 'Styling', icon: 'palette', items: ['Tailwind CSS', 'Sass', 'shadcn/ui',
-		'Framer Motions'
-	] },
-	{ category: 'CMS & Data', icon: 'database', items: ['MDX', 'Sanity', 'Supabase', 'PostgreSQL','Contentful'] },
-	{ category: 'Tooling', icon: 'tool', items: ['Git', 'Vercel', 'Figma','TanStack Query','bun'] },
+const stackGroups: StackGroup[] = [
+	{ category: 'Basics', icon: Code, items: ['HTML', 'CSS', 'JavaScript', 'TypeScript'] },
+	{ category: 'Frameworks', icon: Layers, items: ['React', 'Astro', 'Next.js', 'Node.js', 'React Router'] },
+	{ category: 'Styling', icon: Palette, items: ['Tailwind CSS', 'Sass', 'shadcn/ui', 'Framer Motion'] },
+	{ category: 'CMS & Data', icon: Database, items: ['MDX', 'Sanity', 'Supabase', 'PostgreSQL', 'Contentful'] },
+	{ category: 'Tooling', icon: Wrench, items: ['Git', 'Vercel', 'Figma', 'TanStack Query', 'bun'] },
 ];
 
-const languages = ['Greek', 'English', 'German'];
+type QuickFact = { icon: typeof MapPin; label: string; value: string; accentValue?: boolean };
+
+const quickFacts: QuickFact[] = [
+	{ icon: MapPin, label: 'location', value: 'Athens, GR' },
+	{ icon: Calendar, label: 'coding_since', value: '2021' },
+	{ icon: Code2, label: 'focus', value: 'React ecosystem', accentValue: true },
+	{ icon: Languages, label: 'languages', value: 'EL · EN · DE' },
+];
 ---
 
 <Layout
@@ -26,57 +30,59 @@ const languages = ['Greek', 'English', 'German'];
 	description="Kostas Theodoropoulos, a developer based in Athens building fast, accessible websites for Greek small businesses and international teams."
 >
 	<PersonSchema />
-	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-24 md:flex-row md:items-start">
-		<div class="aspect-square w-full max-w-xs shrink-0 rounded border border-border bg-bg-card"></div>
-		<div class="flex flex-col gap-4">
-			<h1 class="text-4xl leading-tight text-text sm:text-5xl">About</h1>
-			<div class="flex max-w-xl flex-col gap-4 text-text-muted">
-				<Content />
-			</div>
-		</div>
-	</section>
+	<section class="mx-auto flex max-w-5xl flex-col gap-10 px-6 py-24">
+		<h1 class="text-4xl leading-tight text-text sm:text-5xl">About</h1>
 
-	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16">
-		<h2 class="flex items-center gap-2 text-2xl text-text">
-			<SectionIcon name="stack" class="h-5 w-5 text-primary" />
-			Stack
-		</h2>
-		<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-2 gap-px overflow-hidden rounded border border-petrol-mid/25 bg-petrol-mid/25 sm:grid-cols-4">
 			{
-				stackGroups.map((group) => (
-					<div class="flex flex-col gap-3">
-						<p class="flex items-center gap-2 font-mono text-sm text-text-muted">
-							<SectionIcon name={group.icon} class="h-4 w-4 text-primary" />
-							{group.category}
+				quickFacts.map(({ icon: Icon, label, value, accentValue }) => (
+					<div class="flex flex-col gap-1.5 bg-bg px-4 py-3.5">
+						<p class="flex items-center gap-1.5 font-mono text-xs text-text-muted">
+							<Icon class="h-3.5 w-3.5 text-petrol-mid" aria-hidden="true" />
+							{label}
 						</p>
-						<ul class="flex flex-wrap gap-2">
-							{group.items.map((item) => (
-								<StackBadge label={item} />
-							))}
-						</ul>
+						<p class={`font-mono text-sm ${accentValue ? 'text-primary' : 'text-text'}`}>{value}</p>
 					</div>
 				))
 			}
 		</div>
+
+		<div class="flex max-w-2xl flex-col gap-8">
+			<Content />
+		</div>
 	</section>
 
-	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16 sm:flex-row sm:items-center sm:justify-between">
-		<div class="flex flex-col gap-3">
-			<h2 class="flex items-center gap-2 text-2xl text-text">
-				<SectionIcon name="globe" class="h-5 w-5 text-primary" />
-				Languages
-			</h2>
-			<ul class="flex flex-wrap gap-2 text-sm text-text-muted">
-				{languages.map((language) => <li>{language}</li>)}
-			</ul>
+	<section class="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16">
+		<p class="font-mono text-sm text-text-muted">// stack</p>
+		<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+			{
+				stackGroups.map((group) => {
+					const Icon = group.icon;
+					return (
+						<div class="flex flex-col gap-3">
+							<p class="flex items-center gap-2 font-mono text-sm text-text-muted">
+								<Icon class="h-4 w-4 text-primary" />
+								{group.category}
+							</p>
+							<ul class="flex flex-wrap gap-2">
+								{group.items.map((item) => (
+									<StackBadge label={item} />
+								))}
+							</ul>
+						</div>
+					);
+				})
+			}
 		</div>
-		<a
-			href="/cv.pdf"
-			download
-			class="rounded bg-primary px-5 py-2.5 text-sm text-on-primary hover:opacity-90"
-		>
-			Download CV
-		</a>
+		<div>
+			<a
+				href="/cv.pdf"
+				download
+				class="rounded bg-primary px-5 py-2.5 text-sm text-on-primary hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+			>
+				Download CV
+			</a>
+		</div>
 	</section>
 
 	<section class="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-16">
