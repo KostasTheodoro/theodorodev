@@ -44,5 +44,5 @@ const links: { name: 'email' | 'phone' | 'whatsapp' | 'github' | 'linkedin'; lab
 	</div>
 
 	{/* the only React island in the project — deferred to idle since the form is a below-the-fold, low-priority interaction on an otherwise static page */}
-	<ContactForm client:idle />
+	<ContactForm client:idle lang={lang} />
 </section>

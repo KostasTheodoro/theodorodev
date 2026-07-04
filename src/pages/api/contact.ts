@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { siteContact } from '@/lib/site';
+import { ui, defaultLang, type Lang } from '@/i18n/ui';
 
 export const prerender = false;
 
@@ -17,12 +18,15 @@ function json(body: ContactResponse, status: number) {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-	let payload: { name?: unknown; email?: unknown; message?: unknown };
+	let payload: { name?: unknown; email?: unknown; message?: unknown; lang?: unknown };
 	try {
 		payload = await request.json();
 	} catch {
-		return json({ ok: false, error: 'Please fill in all fields with a valid email.' }, 400);
+		// lang isn't known yet since the body failed to parse — malformed body isn't a normal visitor path.
+		return json({ ok: false, error: ui[defaultLang]['form.validationError'] }, 400);
 	}
+
+	const lang: Lang = payload.lang === 'el' ? 'el' : defaultLang;
 
 	const name = typeof payload.name === 'string' ? payload.name.trim() : '';
 	const email = typeof payload.email === 'string' ? payload.email.trim() : '';
@@ -37,7 +41,7 @@ export const POST: APIRoute = async ({ request }) => {
 		message.length > MAX_LENGTH ||
 		!EMAIL_RE.test(email)
 	) {
-		return json({ ok: false, error: 'Please fill in all fields with a valid email.' }, 400);
+		return json({ ok: false, error: ui[lang]['form.validationError'] }, 400);
 	}
 
 	const apiKey = import.meta.env.RESEND_API_KEY;
@@ -46,7 +50,7 @@ export const POST: APIRoute = async ({ request }) => {
 		return json(
 			{
 				ok: false,
-				error: `The contact form isn't wired up to send email yet — please reach out at ${siteContact.email} for now.`,
+				error: ui[lang]['form.notConfigured'].replace('{{email}}', siteContact.email),
 			},
 			503,
 		);
@@ -72,17 +76,11 @@ export const POST: APIRoute = async ({ request }) => {
 		});
 
 		if (!response.ok) {
-			return json(
-				{ ok: false, error: 'Something went wrong sending your message — please try again or email me directly.' },
-				502,
-			);
+			return json({ ok: false, error: ui[lang]['form.fallbackError'] }, 502);
 		}
 
 		return json({ ok: true }, 200);
 	} catch {
-		return json(
-			{ ok: false, error: 'Something went wrong sending your message — please try again or email me directly.' },
-			502,
-		);
+		return json({ ok: false, error: ui[lang]['form.fallbackError'] }, 502);
 	}
 };

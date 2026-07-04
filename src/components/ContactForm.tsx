@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { ui, defaultLang, type Lang } from '@/i18n/ui';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 type ToastType = 'success' | 'error' | 'info';
 type Toast = { type: ToastType; message: string };
-
-const FALLBACK_ERROR = 'Something went wrong sending your message — please try again or email me directly.';
 
 const toastClasses: Record<ToastType, string> = {
 	success: 'border-status-available text-status-available',
@@ -12,7 +11,12 @@ const toastClasses: Record<ToastType, string> = {
 	info: 'border-border text-text-muted',
 };
 
-export default function ContactForm() {
+interface Props {
+	lang?: Lang;
+}
+
+export default function ContactForm({ lang = defaultLang }: Props) {
+	const t = ui[lang];
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
@@ -37,7 +41,7 @@ export default function ContactForm() {
 			const response = await fetch('/api/contact', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ name, email, message }),
+				body: JSON.stringify({ name, email, message, lang }),
 			});
 			const data: { ok: boolean; error?: string } = await response.json();
 
@@ -46,15 +50,15 @@ export default function ContactForm() {
 				setName('');
 				setEmail('');
 				setMessage('');
-				showToast({ type: 'success', message: "Message sent — thanks, I'll get back to you soon." });
+				showToast({ type: 'success', message: t['form.successToast'] });
 			} else {
 				setStatus('error');
 				// A 503 here means the form isn't wired to Resend yet — routine, not a failure on the visitor's end.
-				showToast({ type: response.status === 503 ? 'info' : 'error', message: data.error ?? FALLBACK_ERROR });
+				showToast({ type: response.status === 503 ? 'info' : 'error', message: data.error ?? t['form.fallbackError'] });
 			}
 		} catch {
 			setStatus('error');
-			showToast({ type: 'error', message: FALLBACK_ERROR });
+			showToast({ type: 'error', message: t['form.fallbackError'] });
 		}
 	}
 
@@ -72,7 +76,7 @@ export default function ContactForm() {
 				<div className="grid gap-4 sm:grid-cols-2">
 					<div className="flex flex-col gap-1.5">
 						<label htmlFor="contact-name" className="text-sm text-text">
-							Name
+							{t['form.labelName']}
 						</label>
 						<input
 							id="contact-name"
@@ -86,7 +90,7 @@ export default function ContactForm() {
 					</div>
 					<div className="flex flex-col gap-1.5">
 						<label htmlFor="contact-email" className="text-sm text-text">
-							Email
+							{t['form.labelEmail']}
 						</label>
 						<input
 							id="contact-email"
@@ -101,7 +105,7 @@ export default function ContactForm() {
 				</div>
 				<div className="flex flex-col gap-1.5">
 					<label htmlFor="contact-message" className="text-sm text-text">
-						Message
+						{t['form.labelMessage']}
 					</label>
 					<textarea
 						id="contact-message"
@@ -124,7 +128,7 @@ export default function ContactForm() {
 							<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
 						</svg>
 					)}
-					{submitting ? 'Sending…' : 'Send message'}
+					{submitting ? t['form.sending'] : t['form.send']}
 				</button>
 			</form>
 
