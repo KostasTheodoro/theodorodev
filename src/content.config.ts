@@ -21,6 +21,8 @@ const projects = defineCollection({
           quote: z.string(),
           name: z.string(),
           business: z.string(),
+          initials: z.string(),
+          avatarSrc: image().optional(),
         })
         .optional(),
       metric: z

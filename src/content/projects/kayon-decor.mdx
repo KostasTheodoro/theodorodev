@@ -10,17 +10,27 @@ url: "https://kayon-decor.com"
 cover: "./kayon-decor-cover.png"
 featured: true
 order: 3
+testimonial:
+  quote: "Kostas built our shop under a really tight deadline and kept improving it as the business grew, adding new features exactly when we needed them. He's fast, responsive, and clearly knows his craft.A pleasure from start to finish."
+  name: "Artemis Toumazi"
+  business: "Kayon Decor"
+  initials: "A.T"
 lang: "en"
 ---
 
-import SectionHeading from '@/components/SectionHeading.astro';
+import SectionHeading from "@/components/SectionHeading.astro";
 
 {/* TODO: review copy — no local source material for this project; body copy is a placeholder */}
 
 <SectionHeading icon="problem">The problem</SectionHeading>
-
-Haris needed a modern, informational site for his rental apartments in Kissamos, Crete, linking out to Booking.com and Airbnb for actual reservations. The site had existed on Wix for years, and I was brought in to modernize it and add new features while keeping everything that already worked.
-
+Artemis wanted to launch a pre-order e-shop for her business importing handmade
+furniture from Bali. She needed a professional, modern site that could showcase
+her full range of pre-order products, along with live chat for questions about
+how pre-ordering works.
 <SectionHeading icon="built">What I built</SectionHeading>
-
-A modern informational site that carries over everything from the old Wix version, with a much better showcase of the rooms themselves. It links cleanly out to Booking.com and Airbnb, and includes a contact page so guests can reach out directly with questions. There's a booking form planned for the future, along with a full SPA for booking management, eventually moving away from Booking.com and Airbnb entirely. Like the others, this one keeps evolving.
+In the early stages, this was a plain Next.js and React site with Tailwind CSS
+and Headless UI, with no database due to the tight timeline we had to get it
+live. The project is still evolving in 2026: we've since integrated Supabase and
+Sanity CMS to fully automate how new products are added and stored. It started
+as a collaboration with another developer in the early stages, and has been a
+solo project ever since, one I'm still actively improving.

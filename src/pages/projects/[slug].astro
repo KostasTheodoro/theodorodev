@@ -4,6 +4,7 @@ import { render } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import { Calendar, Layers3, ExternalLink } from 'lucide-astro';
 import StackBadge from '@/components/StackBadge.astro';
+import Testimonial from '@/components/Testimonial.astro';
 import { getProjects, getAdjacentProjects } from '@/lib/content';
 
 export async function getStaticPaths() {
@@ -73,12 +74,13 @@ const { prev, next } = await getAdjacentProjects(slug, 'en');
 
 		{
 			testimonial && (
-				<blockquote class="flex flex-col gap-3 border-l-2 border-primary pl-6">
-					<p class="text-lg text-text">&ldquo;{testimonial.quote}&rdquo;</p>
-					<footer class="text-sm text-text-muted">
-						{testimonial.name} · {testimonial.business}
-					</footer>
-				</blockquote>
+				<Testimonial
+					quote={testimonial.quote}
+					name={testimonial.name}
+					role={testimonial.business}
+					initials={testimonial.initials}
+					avatarSrc={testimonial.avatarSrc}
+				/>
 			)
 		}
 

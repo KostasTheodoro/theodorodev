@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import { Star } from 'lucide-astro';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+	quote: string;
+	name: string;
+	role: string;
+	initials: string;
+	avatarSrc?: ImageMetadata;
+}
+
+const { quote, name, role, initials, avatarSrc } = Astro.props;
+---
+
+<div class="relative mx-auto max-w-[560px] rounded-[12px] border border-petrol-mid/25 bg-bg-card p-5 sm:p-7">
+	<span
+		aria-hidden="true"
+		class="pointer-events-none absolute top-3 right-5 font-mono text-6xl leading-none text-petrol-mid/30 select-none"
+	>
+		"
+	</span>
+
+	<div role="img" aria-label="5 out of 5 stars" class="mb-4 flex gap-1">
+		{
+			Array.from({ length: 5 }).map(() => (
+				<Star aria-hidden="true" class="h-4 w-4 fill-primary text-primary" />
+			))
+		}
+	</div>
+
+	<p class="text-base leading-[1.7] text-text">&ldquo;{quote}&rdquo;</p>
+
+	<div class="mt-6 flex items-center gap-3">
+		{
+			avatarSrc ? (
+				<div class="h-[42px] w-[42px] shrink-0 overflow-hidden rounded-full border border-primary/30">
+					<Image
+						src={avatarSrc}
+						alt={name}
+						width={84}
+						height={84}
+						class="h-full w-full object-cover"
+					/>
+				</div>
+			) : (
+				<div class="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full border border-primary/30 bg-petrol-mid font-mono text-xs text-text">
+					{initials}
+				</div>
+			)
+		}
+		<div class="min-w-0">
+			<p class="truncate text-sm font-semibold text-text">{name}</p>
+			<p class="truncate text-xs text-text-muted">{role}</p>
+		</div>
+	</div>
+</div>
