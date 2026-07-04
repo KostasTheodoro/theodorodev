@@ -29,9 +29,11 @@ const ogImagePath = image ?? `/og${ogKey}.png`;
 const ogImageURL = new URL(ogImagePath, Astro.site);
 
 const logicalPath = getLogicalPath(Astro.url);
-const enURL = new URL(getRelativeLocaleUrl('en', logicalPath), Astro.site);
-const elURL = new URL(getRelativeLocaleUrl('el', logicalPath), Astro.site);
-const switchURL = lang === 'en' ? elURL : enURL;
+const enPath = getRelativeLocaleUrl('en', logicalPath);
+const elPath = getRelativeLocaleUrl('el', logicalPath);
+const enURL = new URL(enPath, Astro.site);
+const elURL = new URL(elPath, Astro.site);
+const switchPath = lang === 'en' ? elPath : enPath;
 const switchLabel = lang === 'en' ? 'EL' : 'EN';
 
 const navLinks = [
@@ -103,7 +105,7 @@ const navLinks = [
 					{navLinks.map((link) => (
 						<a href={link.href} class="hidden text-text hover:text-primary md:inline">{link.label}</a>
 					))}
-					<a href={switchURL} class="font-mono text-text-muted hover:text-primary" aria-label={t('switch.aria')}>{switchLabel}</a>
+					<a href={switchPath} class="font-mono text-text-muted hover:text-primary" aria-label={t('switch.aria')}>{switchLabel}</a>
 					<button
 						id="theme-toggle"
 						type="button"
