@@ -54,11 +54,16 @@
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
   line-height: 1.7;
+  overflow-x: hidden;
 }
 
 h1,

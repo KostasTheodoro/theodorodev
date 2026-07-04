@@ -1,6 +1,7 @@
 ---
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
+import { Menu, X } from 'lucide-astro';
 import Logo from '@/components/Logo.astro';
 import SocialIcon from '@/components/SocialIcon.astro';
 import { siteContact } from '@/lib/site';
@@ -69,16 +70,16 @@ const ogImageURL = new URL(ogImagePath, Astro.site);
 		</script>
 	</head>
 	<body class="flex min-h-screen flex-col">
-		<header class="border-b border-border">
+		<header class="relative border-b border-border">
 			<nav class="mx-auto flex max-w-5xl items-center justify-between gap-6 px-6 py-4">
 				<a href="/" class="flex items-center gap-2 font-mono text-sm text-text">
 					<Logo />
 					theodorodev
 				</a>
-				<div class="flex items-center gap-6 text-sm">
-					<a href="/projects" class="text-text hover:text-primary">Projects</a>
-					<a href="/about" class="text-text hover:text-primary">About</a>
-					<a href="/contact" class="text-text hover:text-primary">Contact</a>
+				<div class="flex items-center gap-4 text-sm sm:gap-6">
+					<a href="/projects" class="hidden text-text hover:text-primary md:inline">Projects</a>
+					<a href="/about" class="hidden text-text hover:text-primary md:inline">About</a>
+					<a href="/contact" class="hidden text-text hover:text-primary md:inline">Contact</a>
 					<!-- TODO: review copy — wired to real /el/ routes in P6 -->
 					<a href="#" class="font-mono text-text-muted hover:text-primary" aria-label="Switch to Greek">EL</a>
 					<button
@@ -95,8 +96,41 @@ const ogImageURL = new URL(ogImagePath, Astro.site);
 							<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
 						</svg>
 					</button>
+					<!-- vanilla JS toggle: zero-JS-by-default rule, matches theme-toggle pattern above -->
+					<button
+						id="mobile-menu-toggle"
+						type="button"
+						class="mobile-menu-toggle text-text hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg md:hidden"
+						aria-expanded="false"
+						aria-controls="mobile-menu-panel"
+						aria-label="Open navigation menu"
+					>
+						<Menu class="icon-menu h-6 w-6" aria-hidden="true" />
+						<X class="icon-close hidden h-6 w-6" aria-hidden="true" />
+					</button>
 				</div>
 			</nav>
+
+			<div
+				id="mobile-menu-panel"
+				class="absolute inset-x-0 top-full z-20 hidden flex-col gap-1 border-t border-border bg-bg-card px-6 py-4 text-sm md:hidden"
+			>
+				<a
+					href="/projects"
+					class="rounded px-3 py-3 text-text hover:bg-bg hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+					>Projects</a
+				>
+				<a
+					href="/about"
+					class="rounded px-3 py-3 text-text hover:bg-bg hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+					>About</a
+				>
+				<a
+					href="/contact"
+					class="rounded px-3 py-3 text-text hover:bg-bg hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+					>Contact</a
+				>
+			</div>
 		</header>
 
 		<main class="flex-1">
@@ -157,6 +191,77 @@ const ogImageURL = new URL(ogImagePath, Astro.site);
 				});
 			});
 		</script>
+
+		<script is:inline>
+			document.addEventListener('astro:page-load', () => {
+				const toggle = document.getElementById('mobile-menu-toggle');
+				const panel = document.getElementById('mobile-menu-panel');
+				if (!toggle || !panel) return;
+
+				const menuIcon = toggle.querySelector('.icon-menu');
+				const closeIcon = toggle.querySelector('.icon-close');
+
+				const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+
+				function openMenu() {
+					if (isOpen()) return;
+					panel.classList.remove('hidden');
+					panel.classList.add('flex');
+					requestAnimationFrame(() => panel.classList.add('is-open'));
+					toggle.setAttribute('aria-expanded', 'true');
+					toggle.setAttribute('aria-label', 'Close navigation menu');
+					menuIcon?.classList.add('hidden');
+					closeIcon?.classList.remove('hidden');
+				}
+
+				function closeMenu({ focusToggle = false } = {}) {
+					if (!isOpen()) return;
+					toggle.setAttribute('aria-expanded', 'false');
+					toggle.setAttribute('aria-label', 'Open navigation menu');
+					menuIcon?.classList.remove('hidden');
+					closeIcon?.classList.add('hidden');
+					panel.classList.remove('is-open');
+
+					const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+					const hide = () => {
+						panel.classList.add('hidden');
+						panel.classList.remove('flex');
+					};
+					if (prefersReducedMotion) {
+						hide();
+					} else {
+						panel.addEventListener('transitionend', hide, { once: true });
+					}
+					if (focusToggle) toggle.focus();
+				}
+
+				function onKeydown(event) {
+					if (isOpen() && event.key === 'Escape') closeMenu({ focusToggle: true });
+				}
+
+				function onClickOutside(event) {
+					if (isOpen() && !panel.contains(event.target) && !toggle.contains(event.target)) {
+						closeMenu();
+					}
+				}
+
+				toggle.addEventListener('click', () => (isOpen() ? closeMenu({ focusToggle: true }) : openMenu()));
+				panel.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => closeMenu()));
+
+				// document persists across Astro view transitions (only <body> children are
+				// replaced), so these listeners must be torn down before each swap or they leak.
+				document.addEventListener('keydown', onKeydown);
+				document.addEventListener('click', onClickOutside);
+				document.addEventListener(
+					'astro:before-swap',
+					() => {
+						document.removeEventListener('keydown', onKeydown);
+						document.removeEventListener('click', onClickOutside);
+					},
+					{ once: true },
+				);
+			});
+		</script>
 	</body>
 </html>
 
@@ -177,6 +282,24 @@ const ogImageURL = new URL(ogImagePath, Astro.site);
 		a,
 		.theme-toggle {
 			transition: color 200ms ease;
+		}
+	}
+
+	#mobile-menu-panel {
+		opacity: 0;
+		transform: translateY(-0.5rem);
+	}
+
+	#mobile-menu-panel.is-open {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		#mobile-menu-panel {
+			transition:
+				opacity 150ms ease,
+				transform 150ms ease;
 		}
 	}
 </style>
