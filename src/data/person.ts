@@ -5,5 +5,5 @@ export const person = {
 	jobTitle: 'Web Developer',
 	url: 'https://theodorodev.com',
 	image: 'https://theodorodev.com/og/home.png',
-	sameAs: [siteContact.githubHref, siteContact.linkedinHref].filter((href) => href !== '#'),
+	sameAs: [siteContact.githubHref, siteContact.linkedinHref],
 } as const;
