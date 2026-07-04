@@ -4,7 +4,7 @@ export type AvailabilityStatus = 'available' | 'limited' | 'busy';
 export const availabilityStatus: AvailabilityStatus = 'available';
 
 export const availabilityCopy: Record<AvailabilityStatus, { label: string; dotClass: string }> = {
-  available: { label: 'open_to_new_projects', dotClass: 'bg-primary' },
+  available: { label: 'open_to_new_projects', dotClass: 'bg-status-available' },
   limited: { label: 'limited_availability', dotClass: 'bg-accent' },
   busy: { label: 'currently_booked', dotClass: 'bg-status-busy' },
 };
