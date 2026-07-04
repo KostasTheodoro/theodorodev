@@ -1,0 +1,165 @@
+---
+import Logo from '@/components/Logo.astro';
+---
+
+<div class="w-full max-w-[340px] overflow-hidden rounded-[10px] border border-petrol-mid/25 bg-bg-card">
+	<div class="flex items-center gap-2 border-b border-petrol-mid/25 bg-bg px-3 py-2">
+		<Logo size={16} />
+		<span class="font-mono text-xs text-text-muted">kostas@theodorodev: ~</span>
+		<span class="ml-auto flex gap-1.5" aria-hidden="true">
+			<span class="h-2 w-2 rounded-full bg-petrol-deep"></span>
+			<span class="h-2 w-2 rounded-full bg-petrol-mid"></span>
+			<span class="h-2 w-2 rounded-full bg-primary"></span>
+		</span>
+	</div>
+
+	<div
+		class="term-body relative px-3.5 py-3.5 font-mono text-[12px] leading-[2]"
+		role="img"
+		aria-label="Terminal session — bun create web-app --by kostas: stack React, Next.js, Tailwind, TypeScript; focus accessible, performant, SEO-ready; based Athens Greece, available worldwide. bun kostas --deploy --prod: deployed to Vercel, production build deployed, Lighthouse scores — Performance 100, Accessibility 100, Best Practices 100, SEO 100. echo: let's build something together."
+	>
+		<div aria-hidden="true" data-term-lines>
+			<p data-line="cmd-1"><span class="text-primary">$</span> <span class="text-text" data-typed>bun create web-app --by kostas</span><span class="cursor" data-cursor hidden></span></p>
+			<p data-line="blank-1">&nbsp;</p>
+			<p data-line="out-1a" class="text-text"><span class="text-primary">✓</span> Stack: React · Next.js · Tailwind · TypeScript</p>
+			<p data-line="out-1b" class="text-text"><span class="text-primary">✓</span> Focus: Accessible · Performant · SEO-ready</p>
+			<p data-line="out-1c" class="text-text"><span class="text-primary">✓</span> Based: Athens, Greece · Available worldwide</p>
+			<p data-line="blank-2">&nbsp;</p>
+			<p data-line="cmd-2"><span class="text-primary">$</span> <span class="text-text" data-typed>bun kostas --deploy --prod</span><span class="cursor" data-cursor hidden></span></p>
+			<p data-line="blank-3">&nbsp;</p>
+			<p data-line="out-2a" class="text-text-muted">▲ Vercel</p>
+			<p data-line="out-2b" class="text-text"><span class="text-primary">✓</span> Production build deployed</p>
+			<p data-line="blank-4">&nbsp;</p>
+			<p data-line="out-2c" class="text-text-muted"><span class="inline-block w-[14ch]">Lighthouse</span><span class="inline-block w-[4ch] text-primary">100</span><span class="text-primary">████</span></p>
+			<p data-line="out-2d" class="text-text-muted"><span class="inline-block w-[14ch]">Performance</span><span class="inline-block w-[4ch] text-primary">100</span><span class="text-primary">████</span></p>
+			<p data-line="out-2e" class="text-text-muted"><span class="inline-block w-[14ch]">Accessibility</span><span class="inline-block w-[4ch] text-primary">100</span><span class="text-primary">████</span></p>
+			<p data-line="out-2f" class="text-text-muted"><span class="inline-block w-[14ch]">Best Practices</span><span class="inline-block w-[4ch] text-primary">100</span><span class="text-primary">████</span></p>
+			<p data-line="out-2g" class="text-text-muted"><span class="inline-block w-[14ch]">SEO</span><span class="inline-block w-[4ch] text-primary">100</span><span class="text-primary">████</span></p>
+			<p data-line="blank-5">&nbsp;</p>
+			<p data-line="cmd-final"><span class="text-primary">$</span> <span class="text-text" data-typed>echo "let's build something together"</span><span class="cursor" data-cursor></span></p>
+		</div>
+	</div>
+</div>
+
+<style>
+	.term-body {
+		min-height: 460px;
+	}
+
+	@keyframes blink {
+		0%,
+		50% {
+			opacity: 1;
+		}
+		50.01%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	.cursor {
+		display: inline-block;
+		width: 7px;
+		height: 13px;
+		background-color: var(--primary);
+		vertical-align: -2px;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.cursor {
+			animation: blink 1.2s step-end infinite;
+		}
+	}
+</style>
+
+<script is:inline>
+	document.addEventListener('astro:page-load', () => {
+		const root = document.querySelector('[data-term-lines]');
+		if (!root) return;
+
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		if (prefersReducedMotion) return;
+
+		const CHAR_DELAY = 25;
+		const OUTPUT_PAUSE = 250;
+		const NEXT_CMD_GAP = 100;
+
+		const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+		const line = (name) => root.querySelector(`[data-line="${name}"]`);
+
+		const commands = [line('cmd-1'), line('cmd-2'), line('cmd-final')];
+		const typedSpans = commands.map((el) => el && el.querySelector('[data-typed]'));
+		const cursorSpans = commands.map((el) => el && el.querySelector('[data-cursor]'));
+		const finalTexts = typedSpans.map((el) => (el ? el.textContent : ''));
+
+		const outputGroup1 = ['out-1a', 'out-1b', 'out-1c', 'blank-2'].map(line);
+		const outputGroup2 = [
+			'blank-3',
+			'out-2a',
+			'out-2b',
+			'blank-4',
+			'out-2c',
+			'out-2d',
+			'out-2e',
+			'out-2f',
+			'out-2g',
+			'blank-5',
+		].map(line);
+		const allOutputs = outputGroup1.concat(outputGroup2);
+
+		function setHidden(el, hidden) {
+			if (!el) return;
+			if (hidden) el.setAttribute('hidden', '');
+			else el.removeAttribute('hidden');
+		}
+
+		function setVisible(el, visible) {
+			if (!el) return;
+			el.style.visibility = visible ? 'visible' : 'hidden';
+		}
+
+		async function typeLine(el, text) {
+			if (!el) return;
+			el.textContent = '';
+			for (const char of text) {
+				el.textContent += char;
+				await delay(CHAR_DELAY);
+			}
+		}
+
+		async function run() {
+			// Only now, at runtime, hide the JS-animated state. If this script
+			// never runs (blocked, errors before this point), the full SSR'd
+			// transcript already in the markup stands as the final, static state.
+			typedSpans.forEach((el) => {
+				if (el) el.textContent = '';
+			});
+			allOutputs.forEach((el) => setVisible(el, false));
+			cursorSpans.forEach((el) => setHidden(el, true));
+
+			setHidden(cursorSpans[0], false);
+			await typeLine(typedSpans[0], finalTexts[0]);
+			await delay(OUTPUT_PAUSE);
+			setHidden(cursorSpans[0], true);
+			outputGroup1.forEach((el) => setVisible(el, true));
+			await delay(NEXT_CMD_GAP);
+
+			setHidden(cursorSpans[1], false);
+			await typeLine(typedSpans[1], finalTexts[1]);
+			await delay(OUTPUT_PAUSE);
+			setHidden(cursorSpans[1], true);
+			outputGroup2.forEach((el) => setVisible(el, true));
+			await delay(NEXT_CMD_GAP);
+
+			// Final command — cursor stays and keeps blinking via the .cursor CSS.
+			setHidden(cursorSpans[2], false);
+			await typeLine(typedSpans[2], finalTexts[2]);
+		}
+
+		if ('requestIdleCallback' in window) {
+			window.requestIdleCallback(run, { timeout: 1500 });
+		} else {
+			setTimeout(run, 200);
+		}
+	});
+</script>
