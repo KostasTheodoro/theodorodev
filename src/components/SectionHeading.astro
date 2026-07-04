@@ -1,14 +1,16 @@
 ---
-import SectionIcon from '@/components/SectionIcon.astro';
+import { Search, Wrench } from 'lucide-astro';
 
 interface Props {
 	icon: 'problem' | 'built';
 }
 
 const { icon } = Astro.props;
+const icons = { problem: Search, built: Wrench } as const;
+const Icon = icons[icon];
 ---
 
 <h2 class="flex items-center gap-2">
-	<SectionIcon name={icon} class="h-5 w-5 shrink-0 text-primary" />
+	<Icon class="h-5 w-5 shrink-0 text-primary" />
 	<slot />
 </h2>
