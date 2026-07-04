@@ -82,6 +82,16 @@ const { label, dotClass } = availabilityCopy[availabilityStatus];
 		background: radial-gradient(circle at 8% 90%, color-mix(in srgb, var(--petrol-deep) 35%, transparent) 0%, transparent 50%);
 	}
 
+	/* --primary and --petrol-deep are dark, desaturated colors in light theme, so the
+	   same mix percentages read as a muddy stain rather than a glow — soften them here. */
+	:global([data-theme='light']) .hero-glow-teal {
+		background: radial-gradient(circle at 80% 40%, color-mix(in srgb, var(--primary) 7%, transparent) 0%, transparent 60%);
+	}
+
+	:global([data-theme='light']) .hero-glow-petrol {
+		background: radial-gradient(circle at 8% 90%, color-mix(in srgb, var(--petrol-deep) 12%, transparent) 0%, transparent 50%);
+	}
+
 	@keyframes blink {
 		0%,
 		50% {
