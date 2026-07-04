@@ -14,6 +14,10 @@
   /* availability badge only — not part of the locked palette above */
   --status-available: #3fbf7f;
   --status-busy: #e2574c;
+
+  /* decorative-only extension of the locked palette: glows, terminal chrome, dots — not for text/interactive color */
+  --petrol-mid: #1e7a87;
+  --petrol-deep: #14555f;
 }
 
 [data-theme="light"] {
@@ -27,6 +31,8 @@
   --accent: #e8890c;
   --status-available: #1f8f52;
   --status-busy: #c0392b;
+  --petrol-mid: #9ec4c4;
+  --petrol-deep: #0a3d44;
 }
 
 @theme inline {
@@ -41,6 +47,8 @@
   --color-status-available: var(--status-available);
   --color-status-limited: var(--accent);
   --color-status-busy: var(--status-busy);
+  --color-petrol-mid: var(--petrol-mid);
+  --color-petrol-deep: var(--petrol-deep);
 
   --font-sans: var(--font-instrument-sans), Inter, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
