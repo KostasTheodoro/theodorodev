@@ -1,0 +1,109 @@
+---
+import TerminalWindow from '@/components/TerminalWindow.astro';
+import { availabilityStatus, availabilityCopy } from '@/lib/availability';
+
+const { label, dotClass } = availabilityCopy[availabilityStatus];
+---
+
+<section class="relative isolate overflow-hidden">
+	<div class="hero-glow hero-glow-teal" aria-hidden="true"></div>
+	<div class="hero-glow hero-glow-petrol" aria-hidden="true"></div>
+
+	<div class="mx-auto flex max-w-5xl flex-col gap-10 px-6 py-24 md:flex-row md:items-center md:gap-12">
+		<div class="flex flex-1 flex-col gap-6">
+			<div class="flex items-center gap-2 self-start rounded-full border border-primary/40 px-3 py-1 font-mono text-xs text-primary">
+				<span class={`h-2 w-2 rounded-full ${dotClass}`}></span>
+				{label}
+			</div>
+
+			<div class="ide-snippet flex gap-3 rounded-md px-3 py-2.5 font-mono text-[13px] leading-relaxed" aria-hidden="true">
+				<div class="flex flex-col text-right text-text-muted/60 select-none">
+					<span>1</span>
+					<span>2</span>
+				</div>
+				<div class="flex flex-col">
+					<p>
+						<span class="font-semibold text-primary">const</span> <span class="text-text">developer</span> = <span
+							class="text-text">"Kostas Theodoropoulos"</span
+						>;
+					</p>
+					<p>
+						<span class="font-semibold text-primary">await</span> <span class="font-semibold text-primary">ship</span>(<span
+							class="text-text">yourIdea</span
+						>);<span class="cursor"></span>
+					</p>
+				</div>
+			</div>
+
+			<h1 class="text-[30px] font-bold leading-tight text-text sm:text-4xl md:text-[36px]">
+				I build websites people<br />
+				<span class="text-primary">actually want to use.</span>
+			</h1>
+
+			<p class="max-w-[400px] text-text-muted">
+				Fast, modern, and built to last, with React, Next.js, and whatever gets the job done right. Got an idea? I'm in.
+			</p>
+
+			<div class="flex flex-wrap gap-4">
+				<a
+					href="/projects"
+					class="rounded bg-primary px-5 py-2.5 text-sm text-on-primary hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+				>
+					View projects
+				</a>
+				<a
+					href="/contact"
+					class="rounded border border-primary px-5 py-2.5 text-sm text-text hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+				>
+					Get in touch
+				</a>
+			</div>
+		</div>
+
+		<div class="w-full md:max-w-[340px] md:shrink-0">
+			<TerminalWindow />
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero-glow {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+	}
+
+	.hero-glow-teal {
+		background: radial-gradient(circle at 80% 40%, color-mix(in srgb, var(--primary) 16%, transparent) 0%, transparent 60%);
+	}
+
+	.hero-glow-petrol {
+		background: radial-gradient(circle at 8% 90%, color-mix(in srgb, var(--petrol-deep) 35%, transparent) 0%, transparent 50%);
+	}
+
+	@keyframes blink {
+		0%,
+		50% {
+			opacity: 1;
+		}
+		50.01%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	.cursor {
+		display: inline-block;
+		width: 7px;
+		height: 13px;
+		background-color: var(--primary);
+		vertical-align: -2px;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.cursor {
+			animation: blink 1.2s step-end infinite;
+		}
+	}
+</style>
