@@ -36,6 +36,8 @@ const elURL = new URL(elPath, Astro.site);
 const switchPath = lang === 'en' ? elPath : enPath;
 const switchLabel = lang === 'en' ? 'EL' : 'EN';
 
+const homeHref = getRelativeLocaleUrl(lang, '');
+
 const navLinks = [
 	{ href: getRelativeLocaleUrl(lang, 'projects'), label: t('nav.projects') },
 	{ href: getRelativeLocaleUrl(lang, 'about'), label: t('nav.about') },
@@ -97,7 +99,7 @@ const navLinks = [
 	<body class="flex min-h-screen flex-col">
 		<header class="relative border-b border-border">
 			<nav class="mx-auto flex max-w-5xl items-center justify-between gap-6 px-6 py-4">
-				<a href="/" class="flex items-center gap-2 font-mono text-sm text-text">
+				<a href={homeHref} class="flex items-center gap-2 font-mono text-sm text-text">
 					<Logo />
 					theodorodev
 				</a>
