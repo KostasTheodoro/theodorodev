@@ -3,7 +3,14 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const projects = defineCollection({
-  loader: glob({ pattern: '**/*.mdx', base: './src/content/projects' }),
+  // Default id generation splits on the first dot, so "garts.el.mdx" and "garts.mdx"
+  // would collide on id "garts" and silently overwrite each other — strip only the
+  // trailing .mdx so per-locale filenames stay distinct entries.
+  loader: glob({
+    pattern: '**/*.mdx',
+    base: './src/content/projects',
+    generateId: ({ entry }) => entry.replace(/\.mdx$/, ''),
+  }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
