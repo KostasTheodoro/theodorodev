@@ -99,7 +99,7 @@ const el: Record<keyof typeof en, string> = {
   "home.aboutEyebrow": "// about",
   "home.aboutHeading": "Σχετικά με μένα",
   "home.aboutTeaser":
-    "Είμαι ο Κώστας, web developer με έδρα την Αθήνα. Ειδικεύομαι σε costum ιστοσελίδες και web applications είμαι πάντα ανοιχτός σε νέες προκλήσεις και ιδέες.",
+    "Είμαι ο Κώστας, web developer με έδρα την Αθήνα. Ειδικεύομαι σε costum ιστοσελίδες και web εφαρμογές είμαι πάντα ανοιχτός σε νέες προκλήσεις και ιδέες.",
   "home.moreAboutMe": "Περισσότερα για μένα",
   "home.aboutAvatarAlt": "Πορτρέτο του Κώστα Θεοδωρόπουλου",
 
