@@ -5,6 +5,7 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import { Menu, X } from 'lucide-astro';
 import Logo from '@/components/Logo.astro';
 import SocialIcon from '@/components/SocialIcon.astro';
+import ScrollToTopButton from '@/components/ScrollToTopButton.astro';
 import { siteContact } from '@/lib/site';
 import { useTranslations, getLangFromUrl, getLogicalPath } from '@/i18n/utils';
 
@@ -199,6 +200,8 @@ const navLinks = [
 				<p>&copy; {new Date().getFullYear()} Kostas Theodoropoulos &middot; {t('footer.rights')}</p>
 			</div>
 		</footer>
+
+		<ScrollToTopButton />
 
 		<script is:inline>
 			document.addEventListener('astro:page-load', () => {
