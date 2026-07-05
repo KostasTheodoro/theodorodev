@@ -36,18 +36,18 @@ const en = {
   "home.moreAboutMe": "More about me",
   "home.aboutAvatarAlt": "Portrait of Kostas Theodoropoulos",
 
-  "meta.home.title": "theodorodev — web developer, Athens",
+  "meta.home.title": "Kostas Theodoropoulos, web developer, Athens",
   "meta.home.description":
-    "I design and build fast, focused websites for small businesses and teams who need results, not bloat.",
-  "meta.about.title": "About — theodorodev",
+    "I build fast websites and apps with React, Next.js, Tailwind and more. Deployed with Vercel, for client work and my own projects.",
+  "meta.about.title": "About - Kostas Theodoropoulos",
   "meta.about.description":
-    "Kostas Theodoropoulos, a developer based in Athens building fast, accessible websites for Greek small businesses and international teams.",
-  "meta.contact.title": "Contact — theodorodev",
+    "Kostas Theodoropoulos is a developer based in Athens, building fast websites and apps with React, Next.js, Tailwind and more. Deployed with Vercel, for clients and personal projects.",
+  "meta.contact.title": "Contact - Kostas Theodoropoulos",
   "meta.contact.description":
-    "Get in touch to talk about your next website — email, phone, WhatsApp, or the form below.",
-  "meta.projects.title": "Projects — theodorodev",
+    "Get in touch and let's make your idea a reality - email, phone, WhatsApp, or the form below.",
+  "meta.projects.title": "Projects - Kostas Theodoropoulos",
   "meta.projects.description":
-    "A selection of websites built for small businesses and teams — fast, accessible, and focused on results.",
+    "Websites and apps I've built for clients and myself. Fast, SEO-focused, and built to score well on Lighthouse.",
 
   "about.heading": "About",
   "about.ctaPre": "Maybe your idea is our next project,",
@@ -113,18 +113,18 @@ const el: Record<keyof typeof en, string> = {
   "home.moreAboutMe": "Περισσότερα για μένα",
   "home.aboutAvatarAlt": "Πορτρέτο του Κώστα Θεοδωρόπουλου",
 
-  "meta.home.title": "theodorodev - web developer, Αθήνα",
+  "meta.home.title": "Κώστας Θεοδωρόπουλος, web developer, Αθήνα",
   "meta.home.description":
-    "Σχεδιάζω και φτιάχνω γρήγορες, ουσιαστικές ιστοσελίδες για μικρές επιχειρήσεις και ομάδες που θέλουν αποτελέσματα, όχι περιττά στοιχεία.",
-  "meta.about.title": "Σχετικά με μένα - theodorodev",
+    "Φτιάχνω γρήγορες ιστοσελίδες και εφαρμογές με React, Next.js, Tailwind και άλλα εργαλεία. Deployment με Vercel, για πελάτες αλλά και δικά μου projects.",
+  "meta.about.title": "Σχετικά με μένα - Κώστας Θεοδωρόπουλος",
   "meta.about.description":
-    "Ο Κώστας Θεοδωρόπουλος είναι developer με έδρα την Αθήνα και φτιάχνει γρήγορες, προσβάσιμες ιστοσελίδες και εφαρμογές. ",
-  "meta.contact.title": "Επικοινωνία - theodorodev",
+    "Ο Κώστας Θεοδωρόπουλος είναι developer με έδρα την Αθήνα, φτιάχνει γρήγορες ιστοσελίδες και εφαρμογές με React, Next.js, Tailwind και άλλα εργαλεία. Deployment με Vercel, για πελάτες και προσωπικά projects.",
+  "meta.contact.title": "Επικοινωνία - Κώστας Θεοδωρόπουλος",
   "meta.contact.description":
-    "Επικοινώνησε μαζί μου για την επόμενη ιστοσελίδα σου — email, τηλέφωνο, WhatsApp, ή η φόρμα παρακάτω.",
-  "meta.projects.title": "Έργα — theodorodev",
+    "Επικοινωνήστε μαζί μου για να κάνουμε την ιδέα σας πραγματικότητα - email, τηλέφωνο, WhatsApp ή συμπληρώστε την φόρμα.",
+  "meta.projects.title": "Έργα - Κώστας Θεοδωρόπουλος",
   "meta.projects.description":
-    "Μια επιλογή από ιστοσελίδες φτιαγμένες με σύγχρονες και γρήγορες τεχνολογίες για διάφορα είδη πελατών.",
+    "Ιστοσελίδες και εφαρμογές που έχω φτιάξει για πελάτες και για μένα. Γρήγορες, με εξαιρετικό SEO και με καλές επιδόσεις στο Lighthouse.",
 
   "about.heading": "Σχετικά με μένα",
   "about.ctaPre": "Ίσως η ιδέα σου να είναι το επόμενο έργο μας,",
