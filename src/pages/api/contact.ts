@@ -18,7 +18,14 @@ function json(body: ContactResponse, status: number) {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-	let payload: { name?: unknown; email?: unknown; message?: unknown; lang?: unknown };
+	let payload: {
+		firstName?: unknown;
+		lastName?: unknown;
+		phone?: unknown;
+		email?: unknown;
+		message?: unknown;
+		lang?: unknown;
+	};
 	try {
 		payload = await request.json();
 	} catch {
@@ -28,15 +35,20 @@ export const POST: APIRoute = async ({ request }) => {
 
 	const lang: Lang = payload.lang === 'el' ? 'el' : defaultLang;
 
-	const name = typeof payload.name === 'string' ? payload.name.trim() : '';
+	const firstName = typeof payload.firstName === 'string' ? payload.firstName.trim() : '';
+	const lastName = typeof payload.lastName === 'string' ? payload.lastName.trim() : '';
+	const phone = typeof payload.phone === 'string' ? payload.phone.trim() : '';
 	const email = typeof payload.email === 'string' ? payload.email.trim() : '';
 	const message = typeof payload.message === 'string' ? payload.message.trim() : '';
 
 	if (
-		!name ||
+		!firstName ||
+		!lastName ||
 		!email ||
 		!message ||
-		name.length > MAX_LENGTH ||
+		firstName.length > MAX_LENGTH ||
+		lastName.length > MAX_LENGTH ||
+		phone.length > MAX_LENGTH ||
 		email.length > MAX_LENGTH ||
 		message.length > MAX_LENGTH ||
 		!EMAIL_RE.test(email)
@@ -70,8 +82,8 @@ export const POST: APIRoute = async ({ request }) => {
 				from,
 				to: siteContact.email,
 				reply_to: email,
-				subject: `New message from ${name} via theodorodev.com`,
-				text: `From: ${name} <${email}>\n\n${message}`,
+				subject: `New message from ${firstName} ${lastName} via theodorodev.com`,
+				text: `From: ${firstName} ${lastName} <${email}>\n${phone ? `Phone: ${phone}\n` : ''}\n${message}`,
 			}),
 		});
 
