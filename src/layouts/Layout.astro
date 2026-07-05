@@ -156,6 +156,8 @@ const navLinks = [
 			<div
 				id="mobile-menu-panel"
 				class="absolute inset-x-0 top-full z-20 hidden flex-col gap-1 border-t border-border bg-bg-card px-6 py-4 text-sm md:hidden"
+				aria-hidden="true"
+				inert
 			>
 				{navLinks.map((link) => (
 					<a
@@ -234,6 +236,8 @@ const navLinks = [
 
 				function openMenu() {
 					if (isOpen()) return;
+					panel.removeAttribute('aria-hidden');
+					panel.removeAttribute('inert');
 					panel.classList.remove('hidden');
 					panel.classList.add('flex');
 					requestAnimationFrame(() => panel.classList.add('is-open'));
@@ -247,11 +251,14 @@ const navLinks = [
 					if (!isOpen()) return;
 					toggle.setAttribute('aria-expanded', 'false');
 					toggle.setAttribute('aria-label', 'Open navigation menu');
+					panel.setAttribute('aria-hidden', 'true');
+					panel.setAttribute('inert', '');
 					menuIcon?.classList.remove('hidden');
 					closeIcon?.classList.add('hidden');
 					panel.classList.remove('is-open');
 
 					const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+					const shouldFocusToggle = focusToggle || panel.contains(document.activeElement);
 					const hide = () => {
 						panel.classList.add('hidden');
 						panel.classList.remove('flex');
@@ -261,7 +268,7 @@ const navLinks = [
 					} else {
 						panel.addEventListener('transitionend', hide, { once: true });
 					}
-					if (focusToggle) toggle.focus();
+					if (shouldFocusToggle) toggle.focus();
 				}
 
 				function onKeydown(event) {
