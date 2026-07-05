@@ -159,40 +159,38 @@ const navLinks = [
 		</main>
 
 		<footer class="border-t border-border">
-			<div class="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-8 text-sm text-text-muted">
-				<div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-					<div class="flex flex-wrap items-center justify-center gap-4">
-						<a
-							href={siteContact.whatsappHref}
-							class="flex items-center gap-2 hover:text-primary"
-							rel="noopener"
-							target="_blank"
-						>
-							<SocialIcon name="whatsapp" />
-							<span>WhatsApp</span>
-						</a>
-						<a
-							href={siteContact.githubHref}
-							class="flex items-center gap-2 hover:text-primary"
-							rel="noopener"
-							target="_blank"
-						>
-							<SocialIcon name="github" />
-							<span>GitHub</span>
-						</a>
-						<a
-							href={siteContact.linkedinHref}
-							class="flex items-center gap-2 hover:text-primary"
-							rel="noopener"
-							target="_blank"
-						>
-							<SocialIcon name="linkedin" />
-							<span>LinkedIn</span>
-						</a>
-					</div>
-					<p>{t('footer.builtWith')} <span class="text-primary">&hearts;</span> &middot; Astro + React + Tailwind</p>
+			<div class="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 py-8 text-sm text-text-muted lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-6">
+				<p class="lg:justify-self-start lg:whitespace-nowrap">&copy; {new Date().getFullYear()} Kostas Theodoropoulos &middot; {t('footer.rights')}</p>
+				<div class="flex flex-wrap items-center justify-center gap-4 lg:justify-self-center">
+					<a
+						href={siteContact.whatsappHref}
+						class="flex items-center gap-2 hover:text-primary"
+						rel="noopener"
+						target="_blank"
+					>
+						<SocialIcon name="whatsapp" />
+						<span>WhatsApp</span>
+					</a>
+					<a
+						href={siteContact.githubHref}
+						class="flex items-center gap-2 hover:text-primary"
+						rel="noopener"
+						target="_blank"
+					>
+						<SocialIcon name="github" />
+						<span>GitHub</span>
+					</a>
+					<a
+						href={siteContact.linkedinHref}
+						class="flex items-center gap-2 hover:text-primary"
+						rel="noopener"
+						target="_blank"
+					>
+						<SocialIcon name="linkedin" />
+						<span>LinkedIn</span>
+					</a>
 				</div>
-				<p class="text-center">&copy; {new Date().getFullYear()} Kostas Theodoropoulos &middot; {t('footer.rights')}</p>
+				<p class="lg:justify-self-end lg:whitespace-nowrap">{t('footer.builtWith')} <span class="text-primary">&hearts;</span> &middot; Astro + React + Tailwind</p>
 			</div>
 		</footer>
 
