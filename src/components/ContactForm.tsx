@@ -10,9 +10,55 @@ type ButtonPhase = 'idle' | 'submitting' | 'success' | 'error';
 const EMPTY_FIELDS: Fields = { firstName: '', lastName: '', email: '', phone: '', message: '' };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHASE_HOLD_MS = 800;
+const TOAST_DURATION = 4000;
 
 interface Props {
 	lang?: Lang;
+}
+
+interface IconProps {
+	className: string;
+}
+
+function CheckIcon({ className }: IconProps) {
+	return (
+		<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+			<path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+		</svg>
+	);
+}
+
+function XIcon({ className }: IconProps) {
+	return (
+		<svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+			<path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
+		</svg>
+	);
+}
+
+type ToastVariant = 'success' | 'error' | 'info';
+
+function ToastBody({ variant, message }: { variant: ToastVariant; message: string }) {
+	const barColor = variant === 'success' ? 'bg-status-available' : 'bg-status-busy';
+	return (
+		<div className="relative w-full overflow-hidden rounded-xl border border-border bg-bg-card px-4 py-3 text-sm text-text shadow-lg">
+			<div className="flex items-center gap-2">
+				{variant === 'success' && <CheckIcon className="contact-btn-icon h-4 w-4 shrink-0 text-status-available" />}
+				{variant === 'error' && <XIcon className="contact-btn-icon h-4 w-4 shrink-0 text-status-busy" />}
+				<span>{message}</span>
+			</div>
+			{variant !== 'info' && (
+				<div
+					className={`contact-toast-progress absolute inset-x-0 bottom-0 h-1 origin-left ${barColor}`}
+					style={{ animationDuration: `${TOAST_DURATION}ms` }}
+				/>
+			)}
+		</div>
+	);
+}
+
+function showToast(variant: ToastVariant, message: string) {
+	toast.custom(() => <ToastBody variant={variant} message={message} />, { duration: TOAST_DURATION });
 }
 
 export default function ContactForm({ lang = defaultLang }: Props) {
@@ -69,22 +115,22 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 				setButtonPhase('success');
 				scheduleAfterPhase(() => {
 					setFields(EMPTY_FIELDS);
-					toast.success(t['form.successToast']);
+					showToast('success', t['form.successToast']);
 				});
 			} else {
 				setButtonPhase('error');
 				scheduleAfterPhase(() => {
 					// A 503 here means the form isn't wired to Resend yet — routine, not a failure on the visitor's end.
 					if (response.status === 503) {
-						toast.message(data.error ?? t['form.notConfigured']);
+						showToast('info', data.error ?? t['form.notConfigured']);
 					} else {
-						toast.error(data.error ?? t['form.fallbackError']);
+						showToast('error', data.error ?? t['form.fallbackError']);
 					}
 				});
 			}
 		} catch {
 			setButtonPhase('error');
-			scheduleAfterPhase(() => toast.error(t['form.fallbackError']));
+			scheduleAfterPhase(() => showToast('error', t['form.fallbackError']));
 		}
 	}
 
@@ -103,7 +149,7 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 
 	function renderError(field: FieldName) {
 		return errors[field] ? (
-			<p id={`contact-${field}-error`} className="text-sm text-status-busy">
+			<p id={`contact-${field}-error`} className="text-xs text-status-busy break-words">
 				{errors[field]}
 			</p>
 		) : null;
@@ -118,6 +164,7 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 							{t['form.labelFirstName']}
 							<span className="text-status-busy"> *</span>
 						</label>
+						{renderError('firstName')}
 						<input
 							id="contact-firstName"
 							name="firstName"
@@ -129,13 +176,13 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 							aria-describedby={errors.firstName ? 'contact-firstName-error' : undefined}
 							className={fieldClass}
 						/>
-						{renderError('firstName')}
 					</div>
 					<div className="flex flex-col gap-1.5">
 						<label htmlFor="contact-lastName" className="text-sm text-text">
 							{t['form.labelLastName']}
 							<span className="text-status-busy"> *</span>
 						</label>
+						{renderError('lastName')}
 						<input
 							id="contact-lastName"
 							name="lastName"
@@ -147,7 +194,6 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 							aria-describedby={errors.lastName ? 'contact-lastName-error' : undefined}
 							className={fieldClass}
 						/>
-						{renderError('lastName')}
 					</div>
 				</div>
 
@@ -156,6 +202,7 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 						{t['form.labelEmail']}
 						<span className="text-status-busy"> *</span>
 					</label>
+					{renderError('email')}
 					<input
 						id="contact-email"
 						name="email"
@@ -167,7 +214,6 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 						aria-describedby={errors.email ? 'contact-email-error' : undefined}
 						className={fieldClass}
 					/>
-					{renderError('email')}
 				</div>
 
 				<div className="flex flex-col gap-1.5">
@@ -191,6 +237,7 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 						{t['form.labelMessage']}
 						<span className="text-status-busy"> *</span>
 					</label>
+					{renderError('message')}
 					<textarea
 						id="contact-message"
 						name="message"
@@ -202,7 +249,6 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 						aria-describedby={errors.message ? 'contact-message-error' : undefined}
 						className={fieldClass}
 					/>
-					{renderError('message')}
 				</div>
 
 				<div className="flex justify-end">
@@ -218,53 +264,30 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 							</svg>
 						)}
 						{buttonPhase === 'success' && (
-							<svg
-								className="contact-btn-icon h-4 w-4 text-status-available"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								aria-hidden="true"
-							>
-								<path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-							</svg>
+							<CheckIcon className="contact-btn-icon h-4 w-4 text-status-available" />
 						)}
-						{buttonPhase === 'error' && (
-							<svg
-								className="contact-btn-icon h-4 w-4 text-status-busy"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								aria-hidden="true"
-							>
-								<path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
-							</svg>
-						)}
+						{buttonPhase === 'error' && <XIcon className="contact-btn-icon h-4 w-4 text-status-busy" />}
 						{buttonPhase === 'idle' && t['form.send']}
 						{buttonPhase === 'submitting' && t['form.sending']}
 					</button>
 				</div>
 			</form>
 
-			<Toaster
-				position="bottom-right"
-				toastOptions={{
-					unstyled: true,
-					classNames: {
-						toast: 'flex items-center gap-2 rounded border border-border bg-bg-card px-4 py-3 text-sm text-text shadow-lg',
-						title: 'text-text',
-						description: 'text-text-muted',
-						success: 'border-status-available',
-						error: 'border-status-busy',
-					},
-				}}
-			/>
+			<Toaster position="top-center" toastOptions={{ unstyled: true }} />
 
 			<style>{`
 				@media (prefers-reduced-motion: no-preference) {
 					.contact-btn-icon {
 						animation: contact-btn-in 200ms ease;
+					}
+					.contact-toast-progress {
+						animation-name: contact-toast-shrink;
+						animation-timing-function: linear;
+						animation-fill-mode: forwards;
+					}
+					[data-sonner-toast]:hover .contact-toast-progress,
+					[data-sonner-toast]:focus-within .contact-toast-progress {
+						animation-play-state: paused;
 					}
 				}
 				@keyframes contact-btn-in {
@@ -275,6 +298,14 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 					to {
 						opacity: 1;
 						transform: scale(1);
+					}
+				}
+				@keyframes contact-toast-shrink {
+					from {
+						transform: scaleX(1);
+					}
+					to {
+						transform: scaleX(0);
 					}
 				}
 			`}</style>

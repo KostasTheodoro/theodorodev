@@ -83,7 +83,7 @@ const en = {
     "Failed to send message. Please try another contact method.",
   "form.validationError": "Please fill in all fields with a valid email.",
   "form.notConfigured":
-    "The contact form isn't wired up to send email yet — please reach out at {{email}} for now.",
+    "The contact form isn't wired up to send email yet. Please reach out at {{email}} for now.",
 } as const;
 
 // TODO: review copy — Greek drafts, owner to refine
@@ -160,7 +160,7 @@ const el: Record<keyof typeof en, string> = {
     "Αποτυχία αποστολής μηνύματος. Δοκιμάστε άλλον τρόπο επικοινωνίας.",
   "form.validationError": "Συμπλήρωσε όλα τα πεδία με ένα έγκυρο email.",
   "form.notConfigured":
-    "Η φόρμα επικοινωνίας δεν είναι ακόμα συνδεδεμένη για αποστολή email — επικοινώνησε προς το παρόν στο {{email}}.",
+    "Η φόρμα επικοινωνίας δεν είναι ακόμα συνδεδεμένη για αποστολή email. Επικοινώνησε προς το παρόν στο {{email}}.",
 };
 
 export const ui = { en, el };

@@ -71,6 +71,9 @@ export const POST: APIRoute = async ({ request }) => {
 	// Sandbox sender until theodorodev.com is verified with Resend — swap RESEND_FROM_EMAIL once it is.
 	const from = import.meta.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
+	const controller = new AbortController();
+	const timeout = setTimeout(() => controller.abort(), 10_000);
+
 	try {
 		const response = await fetch('https://api.resend.com/emails', {
 			method: 'POST',
@@ -85,14 +88,19 @@ export const POST: APIRoute = async ({ request }) => {
 				subject: `New message from ${firstName} ${lastName} via theodorodev.com`,
 				text: `From: ${firstName} ${lastName} <${email}>\n${phone ? `Phone: ${phone}\n` : ''}\n${message}`,
 			}),
+			signal: controller.signal,
 		});
 
 		if (!response.ok) {
+			console.error('Resend request failed', response.status, await response.text());
 			return json({ ok: false, error: ui[lang]['form.fallbackError'] }, 502);
 		}
 
 		return json({ ok: true }, 200);
-	} catch {
+	} catch (error) {
+		console.error('Resend request failed or timed out', error);
 		return json({ ok: false, error: ui[lang]['form.fallbackError'] }, 502);
+	} finally {
+		clearTimeout(timeout);
 	}
 };
