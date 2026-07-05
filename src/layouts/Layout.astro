@@ -159,45 +159,40 @@ const navLinks = [
 		</main>
 
 		<footer class="border-t border-border">
-			<div class="mx-auto flex max-w-5xl flex-col items-center gap-4 px-6 py-8 text-center text-sm text-text-muted">
-				<div class="flex flex-wrap items-center justify-center gap-4">
-					<a href={siteContact.emailHref} class="hover:text-primary" aria-label="Email">
-						<SocialIcon name="email" />
-					</a>
-					<a href={siteContact.phoneHref} class="hover:text-primary" aria-label="Phone">
-						<SocialIcon name="phone" />
-					</a>
-					<a
-						href={siteContact.whatsappHref}
-						class="hover:text-primary"
-						aria-label="WhatsApp"
-						rel="noopener"
-						target="_blank"
-					>
-						<SocialIcon name="whatsapp" />
-					</a>
-					<a
-						href={siteContact.githubHref}
-						class="hover:text-primary"
-						aria-label="GitHub"
-						rel="noopener"
-						target="_blank"
-					>
-						<SocialIcon name="github" />
-					</a>
-					<!-- TODO: connect LinkedIn manually later -->
-					<a
-						href={siteContact.linkedinHref}
-						class="hover:text-primary"
-						aria-label="LinkedIn"
-						rel="noopener"
-						target="_blank"
-					>
-						<SocialIcon name="linkedin" />
-					</a>
+			<div class="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-8 text-sm text-text-muted">
+				<div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+					<div class="flex flex-wrap items-center justify-center gap-4">
+						<a
+							href={siteContact.whatsappHref}
+							class="flex items-center gap-2 hover:text-primary"
+							rel="noopener"
+							target="_blank"
+						>
+							<SocialIcon name="whatsapp" />
+							<span>WhatsApp</span>
+						</a>
+						<a
+							href={siteContact.githubHref}
+							class="flex items-center gap-2 hover:text-primary"
+							rel="noopener"
+							target="_blank"
+						>
+							<SocialIcon name="github" />
+							<span>GitHub</span>
+						</a>
+						<a
+							href={siteContact.linkedinHref}
+							class="flex items-center gap-2 hover:text-primary"
+							rel="noopener"
+							target="_blank"
+						>
+							<SocialIcon name="linkedin" />
+							<span>LinkedIn</span>
+						</a>
+					</div>
+					<p>{t('footer.builtWith')} <span class="text-primary">&hearts;</span> &middot; Astro + React + Tailwind</p>
 				</div>
-				<p>{t('footer.builtWith')} <span class="text-primary">&hearts;</span> &middot; Astro + React</p>
-				<p>&copy; {new Date().getFullYear()} Kostas Theodoropoulos &middot; {t('footer.rights')}</p>
+				<p class="text-center">&copy; {new Date().getFullYear()} Kostas Theodoropoulos &middot; {t('footer.rights')}</p>
 			</div>
 		</footer>
 
