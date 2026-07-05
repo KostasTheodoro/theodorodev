@@ -12,6 +12,7 @@ export const { getStaticPaths, GET } = await OGImageRoute({
 		bgGradient: [[0x0b, 0x1b, 0x20]], // --bg
 		border: { color: [0x4f, 0xb3, 0xc6], width: 6, side: 'block-start' }, // --primary
 		padding: 80,
+		logo: { path: './public/android-chrome-512x512.png', size: [96] },
 		font: {
 			title: {
 				color: [0xed, 0xe7, 0xda], // --text
