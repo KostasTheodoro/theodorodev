@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-astro';
 import Logo from '@/components/Logo.astro';
 import SocialIcon from '@/components/SocialIcon.astro';
 import ScrollToTopButton from '@/components/ScrollToTopButton.astro';
+import PersonSchema from '@/components/PersonSchema.astro';
 import { siteContact } from '@/lib/site';
 import { useTranslations, getLangFromUrl, getLogicalPath } from '@/i18n/utils';
 
@@ -15,12 +16,15 @@ interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	type?: 'website' | 'article';
 }
 
-const { title, description, image } = Astro.props;
+const { title, description, image, type = 'website' } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const ogLocale = lang === 'el' ? 'el_GR' : 'en_US';
+const ogLocaleAlternate = lang === 'el' ? 'en_US' : 'el_GR';
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -61,21 +65,30 @@ const navLinks = [
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalURL} />
 
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="theodorodev" />
+		<meta property="og:type" content={type} />
+		<meta property="og:site_name" content="Kostas Theodoropoulos" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:alt" content={title} />
+		<meta property="og:locale" content={ogLocale} />
+		<meta property="og:locale:alternate" content={ogLocaleAlternate} />
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImageURL} />
+		<meta name="twitter:image:alt" content={title} />
 
 		<link rel="alternate" hreflang="en" href={enURL} />
 		<link rel="alternate" hreflang="el" href={elURL} />
 		<link rel="alternate" hreflang="x-default" href={enURL} />
+
+		<PersonSchema />
 
 		<Font cssVariable="--font-instrument-sans" preload />
 		<Font cssVariable="--font-jetbrains-mono" />

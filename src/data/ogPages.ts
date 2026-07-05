@@ -23,7 +23,7 @@ export async function getOgPages(): Promise<Record<string, OgPage>> {
 
 	for (const project of projectsEn) {
 		pages[`projects/${project.data.slug}`] = {
-			title: `${project.data.title} — theodorodev`,
+			title: `${project.data.title} - Kostas Theodoropoulos`,
 			description: project.data.oneLiner,
 		};
 	}
@@ -34,7 +34,7 @@ export async function getOgPages(): Promise<Record<string, OgPage>> {
 
 	for (const project of projectsEl) {
 		pages[`el/projects/${project.data.slug}`] = {
-			title: `${project.data.title} — theodorodev`,
+			title: `${project.data.title} - Κώστας Θεοδωρόπουλος`,
 			description: project.data.oneLiner,
 		};
 	}

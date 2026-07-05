@@ -1,6 +1,5 @@
 ---
 import StackBadge from '@/components/StackBadge.astro';
-import PersonSchema from '@/components/PersonSchema.astro';
 import { Code, Layers, Palette, Database, Wrench, MapPin, Calendar, Code2, Languages } from 'lucide-astro';
 import { useTranslations } from '@/i18n/utils';
 import type { Lang } from '@/i18n/ui';
@@ -38,7 +37,6 @@ const projectsHref = lang === 'el' ? '/el/projects' : '/projects';
 const contactHref = lang === 'el' ? '/el/contact' : '/contact';
 ---
 
-<PersonSchema />
 <section class="mx-auto flex max-w-5xl flex-col gap-10 px-6 py-24">
 	<h1 class="text-4xl leading-tight text-text sm:text-5xl">{t('about.heading')}</h1>
 

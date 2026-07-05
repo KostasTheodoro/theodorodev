@@ -16,6 +16,6 @@ const { title, oneLiner } = project.data;
 const { prev, next } = await getAdjacentProjects(project.data.slug, 'en');
 ---
 
-<Layout title={`${title} — theodorodev`} description={oneLiner}>
+<Layout title={`${title} - Kostas Theodoropoulos`} description={oneLiner} type="article">
 	<ProjectDetailContent lang="en" project={project} prev={prev} next={next} />
 </Layout>
