@@ -255,7 +255,7 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 					<button
 						type="submit"
 						disabled={buttonPhase === 'submitting'}
-						className="flex items-center justify-center gap-2 rounded bg-primary px-5 py-2.5 text-sm text-on-primary hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+						className="flex items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-5 py-2.5 text-sm text-on-primary transition-transform duration-150 hover:scale-105 hover:bg-transparent hover:text-text active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
 					>
 						{buttonPhase === 'submitting' && (
 							<svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
