@@ -48,5 +48,18 @@ export default defineConfig({
     }
   ],
 
-  integrations: [mdx(), react(), sitemap({ filter: (page) => !page.includes('/og/') })]
+  integrations: [
+    mdx(),
+    react(),
+    sitemap({
+      filter: (page) => !page.includes('/og/'),
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en',
+          el: 'el'
+        }
+      }
+    })
+  ]
 });
