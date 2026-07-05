@@ -59,7 +59,9 @@
 }
 
 html {
-  overflow-x: hidden;
+  /* clip (not hidden) — overflow other than visible on an ancestor breaks
+     position: sticky on the header; clip avoids that while still hiding overflow */
+  overflow-x: clip;
 }
 
 body {
@@ -67,7 +69,7 @@ body {
   color: var(--text);
   font-family: var(--font-sans);
   line-height: 1.7;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1,
