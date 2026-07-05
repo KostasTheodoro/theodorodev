@@ -11,7 +11,7 @@ const { year, accent = false } = Astro.props;
 	<div class="shrink-0 sm:w-20">
 		<span class={`font-mono text-sm text-primary ${accent ? 'font-semibold' : ''}`}>{year}</span>
 	</div>
-	<div class="flex-1 text-text-muted [&_p]:leading-7">
+	<div class="flex-1 text-text-muted [&_a]:text-primary [&_a:hover]:underline [&_a:focus-visible]:outline-none [&_a:focus-visible]:ring-2 [&_a:focus-visible]:ring-primary [&_a:focus-visible]:ring-offset-2 [&_a:focus-visible]:ring-offset-bg [&_p]:leading-7">
 		<slot />
 	</div>
 </div>
