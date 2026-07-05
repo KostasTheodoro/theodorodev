@@ -14,7 +14,7 @@ interface Props {
 const { quote, name, role, initials, avatarSrc } = Astro.props;
 ---
 
-<div class="relative mx-auto max-w-[560px] rounded-[12px] border border-petrol-mid/25 bg-bg-card p-5 sm:p-7">
+<div class="relative mx-auto max-w-140 rounded-xl border border-petrol-mid/25 bg-bg-card p-5 sm:p-7">
 	<span
 		aria-hidden="true"
 		class="pointer-events-none absolute top-3 right-5 font-mono text-6xl leading-none text-petrol-mid/30 select-none"
@@ -35,7 +35,7 @@ const { quote, name, role, initials, avatarSrc } = Astro.props;
 	<div class="mt-6 flex items-center gap-3">
 		{
 			avatarSrc ? (
-				<div class="h-[42px] w-[42px] shrink-0 overflow-hidden rounded-full border border-primary/30">
+				<div class="size-10.5 shrink-0 overflow-hidden rounded-full border border-primary/30">
 					<Image
 						src={avatarSrc}
 						alt={name}
@@ -45,7 +45,7 @@ const { quote, name, role, initials, avatarSrc } = Astro.props;
 					/>
 				</div>
 			) : (
-				<div class="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full border border-primary/30 bg-petrol-mid font-mono text-xs text-text">
+				<div class="flex size-10.5 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-petrol-mid font-mono text-xs text-text">
 					{initials}
 				</div>
 			)

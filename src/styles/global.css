@@ -52,6 +52,10 @@
 
   --font-sans: var(--font-instrument-sans), Inter, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --text-code-xs: 0.6875rem; /* 11px — Hero ide-snippet base size, no exact named match */
+  --text-code-sm: 0.8125rem; /* 13px — Hero ide-snippet sm: breakpoint size, no exact named match */
+  --radius-terminal: 0.625rem; /* 10px — TerminalWindow card radius, no exact named match */
 }
 
 html {

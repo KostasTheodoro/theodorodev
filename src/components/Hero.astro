@@ -27,7 +27,7 @@ const contactHref = lang === 'el' ? '/el/contact' : '/contact';
 			</div>
 
 			<div
-				class="ide-snippet flex gap-3 overflow-x-auto rounded-md px-3 py-2.5 font-mono text-[11px] leading-relaxed sm:text-[13px]"
+				class="ide-snippet flex gap-3 overflow-x-auto rounded-md px-3 py-2.5 font-mono text-code-xs leading-relaxed sm:text-code-sm"
 				aria-hidden="true"
 			>
 				<div class="flex shrink-0 flex-col text-right text-text-muted/60 select-none">
@@ -48,12 +48,12 @@ const contactHref = lang === 'el' ? '/el/contact' : '/contact';
 				</div>
 			</div>
 
-			<h1 class="text-[30px] font-bold leading-tight text-text sm:text-4xl md:text-[36px]">
+			<h1 class="text-3xl font-bold leading-tight text-text sm:text-4xl">
 				{t('hero.titleLine1')}<br />
 				<span class="text-primary">{t('hero.titleAccent')}</span>
 			</h1>
 
-			<p class="max-w-[400px] text-text-muted">
+			<p class="max-w-100 text-text-muted">
 				{t('hero.subtext')}
 			</p>
 
@@ -62,7 +62,7 @@ const contactHref = lang === 'el' ? '/el/contact' : '/contact';
 			</div>
 		</div>
 
-		<div class="w-full md:max-w-[340px] md:shrink-0">
+		<div class="w-full md:max-w-85 md:shrink-0">
 			<TerminalWindow />
 		</div>
 	</div>
