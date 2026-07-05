@@ -18,14 +18,15 @@ export const { getStaticPaths, GET } = await OGImageRoute({
 				color: [0xed, 0xe7, 0xda], // --text
 				size: 64,
 				weight: 'Bold',
-				families: ['Instrument Sans'],
+				families: ['Instrument Sans', 'Noto Sans'],
 			},
 			description: {
 				color: [0x8f, 0xa3, 0xa8], // --text-muted
 				size: 32,
-				families: ['Instrument Sans'],
+				families: ['Instrument Sans', 'Noto Sans'],
 			},
 		},
-		fonts: ['./src/assets/fonts/InstrumentSans-Variable.ttf'],
+		// Noto Sans is a fallback for Greek glyphs, which Instrument Sans doesn't cover.
+		fonts: ['./src/assets/fonts/InstrumentSans-Variable.ttf', './src/assets/fonts/NotoSans-Variable.ttf'],
 	}),
 });
