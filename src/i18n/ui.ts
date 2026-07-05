@@ -56,12 +56,18 @@ const en = {
   "about.ctaContact": "get in touch",
 
   "contact.heading": "Contact me",
+  "contact.intro":
+    "Have a project in mind or just want to ask something? Send me a message and I’ll get back to you soon.",
 
   "projectsIndex.heading": "Projects",
+  "projectsIndex.intro":
+    "A selection of client work and projects I’m still improving. Open a case study to see what the client needed and how I approached it.",
 
   "project.year": "Year of first development:",
   "project.stack": "Stack:",
   "project.visitSite": "Visit live site",
+  "project.allProjects": "← All projects",
+  "projectCard.ariaLabel": "View {{title}} case study",
 
   "form.labelFirstName": "First Name",
   "form.labelLastName": "Last Name",
@@ -133,12 +139,18 @@ const el: Record<keyof typeof en, string> = {
   "about.ctaContact": "επικοινώνησε μαζί μου",
 
   "contact.heading": "Επικοινώνησε μαζί μου",
+  "contact.intro":
+    "Έχεις κάποιο project στο μυαλό σου ή θέλεις απλώς να ρωτήσεις κάτι; Στείλε μου ένα μήνυμα και θα σου απαντήσω σύντομα.",
 
   "projectsIndex.heading": "Έργα",
+  "projectsIndex.intro":
+    "Μερικά από τα projects που έχω αναλάβει ή συνεχίζω να εξελίσσω. Σε κάθε case study εξηγώ τι χρειαζόταν ο πελάτης και πώς το προσέγγισα.",
 
   "project.year": "Έτος κατασκευής:",
   "project.stack": "Τεχνολογίες:",
   "project.visitSite": "Επίσκεψη στην ιστοσελίδα",
+  "project.allProjects": "← Όλα τα projects",
+  "projectCard.ariaLabel": "Άνοιγμα case study για {{title}}",
 
   "form.labelFirstName": "Όνομα",
   "form.labelLastName": "Επώνυμο",

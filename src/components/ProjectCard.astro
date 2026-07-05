@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import StackBadge from '@/components/StackBadge.astro';
+import { useTranslations } from '@/i18n/utils';
 
 interface Props {
 	project: CollectionEntry<'projects'>;
@@ -10,11 +11,14 @@ interface Props {
 
 const { project, showYear = false } = Astro.props;
 const { slug, title, oneLiner, stack, cover, year } = project.data;
+const t = useTranslations(project.data.lang);
+const ariaLabel = t('projectCard.ariaLabel').replace('{{title}}', title);
 ---
 
 <a
 	href={`${project.data.lang === 'el' ? '/el' : ''}/projects/${slug}`}
-	class="group flex flex-col gap-4 rounded-lg border border-border bg-bg-card p-3 hover:scale-[1.02] hover:border-primary"
+	aria-label={ariaLabel}
+	class="group flex flex-col gap-4 rounded-lg border border-border bg-bg-card p-3 hover:scale-[1.02] hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
 >
 	<Image
 		src={cover}

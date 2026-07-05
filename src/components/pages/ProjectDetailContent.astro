@@ -84,22 +84,27 @@ const projectsPrefix = lang === 'el' ? '/el/projects' : '/projects';
 		)
 	}
 
-	<nav class="flex items-center justify-between gap-4 border-t border-border pt-8 text-sm">
-		{
-			prev ? (
-				<a href={`${projectsPrefix}/${prev.data.slug}`} class="text-text hover:text-primary">
-					&larr; {prev.data.title}
-				</a>
-			) : (
-				<span />
-			)
-		}
-		{
-			next && (
-				<a href={`${projectsPrefix}/${next.data.slug}`} class="text-text hover:text-primary">
-					{next.data.title} &rarr;
-				</a>
-			)
-		}
+	<nav class="flex flex-col gap-4 border-t border-border pt-8 text-sm">
+		<a href={projectsPrefix} class="w-fit text-text hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
+			{t('project.allProjects')}
+		</a>
+		<div class="flex items-center justify-between gap-4">
+			{
+				prev ? (
+					<a href={`${projectsPrefix}/${prev.data.slug}`} class="text-text hover:text-primary">
+						&larr; {prev.data.title}
+					</a>
+				) : (
+					<span />
+				)
+			}
+			{
+				next && (
+					<a href={`${projectsPrefix}/${next.data.slug}`} class="text-text hover:text-primary">
+						{next.data.title} &rarr;
+					</a>
+				)
+			}
+		</div>
 	</nav>
 </section>
