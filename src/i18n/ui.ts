@@ -23,7 +23,7 @@ const en = {
   "hero.titleLine1": "I build websites people",
   "hero.titleAccent": "actually want to use.",
   "hero.subtext":
-    "Fast, modern, and built to last, with React, Next.js, and whatever gets the job done right. Got an idea? I'm in.",
+    "I mostly work with React and Next.js, but I'm not tied to a specific stack. If a different tool fits your project better, that's what I'll use. Got an idea? I'm in",
   "hero.cta": "Get in touch",
 
   "home.workEyebrow": "// work",
@@ -32,8 +32,8 @@ const en = {
   "home.aboutEyebrow": "// about",
   "home.aboutHeading": "About",
   "home.aboutTeaser":
-    "I'm Kostas, a developer based in Athens. I specialize in the React ecosystem, and I'm always looking for new challenges and projects.",
-  "home.moreAboutMe": "More about me",
+    "I'm Kostas, a developer based in Athens. I spend most of my time building custom websites and web applications. There's always something new to learn, and that's probably my favorite part of the job.",
+  "home.moreAboutMe": "Get to know me",
   "home.aboutAvatarAlt": "Portrait of Kostas Theodoropoulos",
 
   "meta.home.title": "Kostas Theodoropoulos, web developer, Athens",
@@ -100,7 +100,7 @@ const el: Record<keyof typeof en, string> = {
   "hero.titleLine1": "Φτιάχνω ιστοσελίδες που ο κόσμος",
   "hero.titleAccent": "θέλει πραγματικά να χρησιμοποιεί.",
   "hero.subtext":
-    "Γρήγορες και σύγχρονες ιστοσελίδες φτιαγμένες να αντέχουν στον χρόνο, με React, Next.js και ό,τι χρειαστεί για να γίνει σωστά η δουλειά. Έχεις μια ιδέα; Είμαι μέσα.",
+    "Δουλεύω κυρίως με React και Next.js, χωρίς να περιορίζομαι σε ένα συγκεκριμένο stack. Χρησιμοποιώ ό,τι ταιριάζει καλύτερα στο κάθε project. Έχεις μια ιδέα; Είμαι μέσα.",
   "hero.cta": "Επικοινώνησε μαζί μου",
 
   "home.workEyebrow": "// work",
@@ -109,7 +109,7 @@ const el: Record<keyof typeof en, string> = {
   "home.aboutEyebrow": "// about",
   "home.aboutHeading": "Σχετικά με μένα",
   "home.aboutTeaser":
-    "Είμαι ο Κώστας, web developer με έδρα την Αθήνα. Μου αρέσει να φτιάχνω ιστοσελίδες και εφαρμογές που είναι απλές στη χρήση και σωστά υλοποιημένες. Όταν αναλαμβάνω ένα project, προσπαθώ να δώσω σημασία στις λεπτομέρειες και όχι μόνο στο τελικό αποτέλεσμα",
+    "Είμαι ο Κώστας, web developer με έδρα την Αθήνα. Μου αρέσει να φτιάχνω ιστοσελίδες και εφαρμογές που είναι απλές στη χρήση και δουλεύουν όπως πρέπει. Σε κάθε project προσπαθώ να προσέχω και τις μικρές λεπτομέρειες, όχι μόνο το πώς φαίνεται στο τέλος.",
   "home.moreAboutMe": "Περισσότερα για μένα",
   "home.aboutAvatarAlt": "Πορτρέτο του Κώστα Θεοδωρόπουλου",
 
