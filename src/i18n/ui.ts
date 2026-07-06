@@ -67,7 +67,6 @@ const en = {
   "project.stack": "Stack:",
   "project.visitSite": "Visit live site",
   "project.allProjects": "← All projects",
-  "projectCard.ariaLabel": "View {{title}} case study",
 
   "form.labelFirstName": "First Name",
   "form.labelLastName": "Last Name",
@@ -150,7 +149,6 @@ const el: Record<keyof typeof en, string> = {
   "project.stack": "Τεχνολογίες:",
   "project.visitSite": "Επίσκεψη στην ιστοσελίδα",
   "project.allProjects": "← Όλα τα projects",
-  "projectCard.ariaLabel": "Άνοιγμα case study για {{title}}",
 
   "form.labelFirstName": "Όνομα",
   "form.labelLastName": "Επώνυμο",
