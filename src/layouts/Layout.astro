@@ -133,13 +133,13 @@ const navLinks = [
 
 				<div class="flex items-center justify-self-end gap-4 text-sm sm:gap-6 md:justify-self-auto">
 					{navLinks.map((link) => (
-						<a href={link.href} class="hidden text-text hover:text-primary md:inline">{link.label}</a>
+						<a href={link.href} class="hidden text-text hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg md:inline">{link.label}</a>
 					))}
-					<a href={switchPath} class="font-mono text-text-muted hover:text-primary" aria-label={t('switch.aria')}>{switchLabel}</a>
+					<a href={switchPath} class="font-mono text-text-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg" aria-label={`${switchLabel} — ${t('switch.aria')}`}>{switchLabel}</a>
 					<button
 						id="theme-toggle"
 						type="button"
-						class="theme-toggle text-text hover:text-primary"
+						class="theme-toggle text-text hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
 						aria-label="Toggle color theme"
 					>
 						<svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -179,7 +179,7 @@ const navLinks = [
 				<div class="flex flex-wrap items-center justify-center gap-4 lg:justify-self-center">
 					<a
 						href={siteContact.whatsappHref}
-						class="flex items-center gap-2 hover:text-primary"
+						class="flex items-center gap-2 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
 						rel="noopener"
 						target="_blank"
 					>
@@ -188,7 +188,7 @@ const navLinks = [
 					</a>
 					<a
 						href={siteContact.githubHref}
-						class="flex items-center gap-2 hover:text-primary"
+						class="flex items-center gap-2 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
 						rel="noopener"
 						target="_blank"
 					>
@@ -197,7 +197,7 @@ const navLinks = [
 					</a>
 					<a
 						href={siteContact.linkedinHref}
-						class="flex items-center gap-2 hover:text-primary"
+						class="flex items-center gap-2 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
 						rel="noopener"
 						target="_blank"
 					>

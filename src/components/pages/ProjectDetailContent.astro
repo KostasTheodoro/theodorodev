@@ -91,7 +91,7 @@ const projectsPrefix = lang === 'el' ? '/el/projects' : '/projects';
 		<div class="flex items-center justify-between gap-4">
 			{
 				prev ? (
-					<a href={`${projectsPrefix}/${prev.data.slug}`} class="text-text hover:text-primary">
+					<a href={`${projectsPrefix}/${prev.data.slug}`} class="text-text hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
 						&larr; {prev.data.title}
 					</a>
 				) : (
@@ -100,7 +100,7 @@ const projectsPrefix = lang === 'el' ? '/el/projects' : '/projects';
 			}
 			{
 				next && (
-					<a href={`${projectsPrefix}/${next.data.slug}`} class="text-text hover:text-primary">
+					<a href={`${projectsPrefix}/${next.data.slug}`} class="text-text hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
 						{next.data.title} &rarr;
 					</a>
 				)
