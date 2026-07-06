@@ -21,6 +21,7 @@ const projects = await getProjects(lang);
 		</h1>
 		<p class="text-text-muted">{t('projectsIndex.intro')}</p>
 	</div>
+	<h2 class="sr-only">{t('nav.projects')}</h2>
 	<div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
 		{projects.map((project) => <ProjectCard project={project} showYear />)}
 	</div>
