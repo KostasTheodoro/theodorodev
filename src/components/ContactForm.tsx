@@ -8,6 +8,10 @@ type Errors = Partial<Record<FieldName, string>>;
 type ButtonPhase = 'idle' | 'submitting' | 'success' | 'error';
 
 const EMPTY_FIELDS: Fields = { firstName: '', lastName: '', email: '', phone: '', message: '' };
+// Hidden from sighted users and screen readers alike — only bots that fill
+// every input blindly will trip it. Kept out of `Fields` since it isn't a
+// real, translated form field.
+const HONEYPOT_FIELD = 'website';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHASE_HOLD_MS = 800;
 const TOAST_DURATION = 4000;
@@ -64,6 +68,7 @@ function showToast(variant: ToastVariant, message: string) {
 export default function ContactForm({ lang = defaultLang }: Props) {
 	const t = ui[lang];
 	const [fields, setFields] = useState<Fields>(EMPTY_FIELDS);
+	const [website, setWebsite] = useState('');
 	const [errors, setErrors] = useState<Errors>({});
 	const [buttonPhase, setButtonPhase] = useState<ButtonPhase>('idle');
 	const phaseTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -107,24 +112,26 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 			const response = await fetch('/api/contact', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ ...fields, lang }),
+				body: JSON.stringify({ ...fields, [HONEYPOT_FIELD]: website, lang }),
 			});
-			const data: { ok: boolean; error?: string } = await response.json();
+			const data: { success: boolean; message?: string; errors?: Errors } = await response.json();
 
-			if (data.ok) {
+			if (data.success) {
 				setButtonPhase('success');
 				scheduleAfterPhase(() => {
 					setFields(EMPTY_FIELDS);
+					setWebsite('');
 					showToast('success', t['form.successToast']);
 				});
 			} else {
 				setButtonPhase('error');
+				if (data.errors) setErrors((prev) => ({ ...prev, ...data.errors }));
 				scheduleAfterPhase(() => {
 					// A 503 here means the form isn't wired to Resend yet — routine, not a failure on the visitor's end.
 					if (response.status === 503) {
-						showToast('info', data.error ?? t['form.notConfigured']);
+						showToast('info', data.message ?? t['form.notConfigured']);
 					} else {
-						showToast('error', data.error ?? t['form.fallbackError']);
+						showToast('error', data.message ?? t['form.fallbackError']);
 					}
 				});
 			}
@@ -158,6 +165,19 @@ export default function ContactForm({ lang = defaultLang }: Props) {
 	return (
 		<div className="rounded border border-border bg-bg-card p-6 flex flex-col gap-4">
 			<form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
+				{/* Honeypot: hidden from sighted users and screen readers, only bots filling every field trip it. */}
+				<div className="absolute left-[-9999px] top-auto h-0 w-0 overflow-hidden" aria-hidden="true">
+					<label htmlFor="contact-website">Website</label>
+					<input
+						id="contact-website"
+						name={HONEYPOT_FIELD}
+						type="text"
+						tabIndex={-1}
+						autoComplete="off"
+						value={website}
+						onChange={(event) => setWebsite(event.target.value)}
+					/>
+				</div>
 				<div className="grid gap-4 sm:grid-cols-2">
 					<div className="flex flex-col gap-1.5">
 						<label htmlFor="contact-firstName" className="text-sm text-text">
